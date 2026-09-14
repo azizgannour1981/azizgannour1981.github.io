@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#163b3b">
+<link rel="manifest" href="manifest.webmanifest">
+<title>مراقبة كتابة النيابة العامة</title>
+<style>
+:root{--bg:#f3f5f5;--card:#fff;--ink:#172525;--muted:#687575;--accent:#1f5552;--accent2:#d5b46b;--line:#dde4e3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{background:linear-gradient(135deg,#123636,#27645f);color:white;padding:26px 22px 22px;border-radius:0 0 28px 28px;box-shadow:0 8px 24px #0001}
+header h1{margin:0;font-size:25px}header p{margin:7px 0 0;opacity:.82}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
+nav button{white-space:nowrap;border:0;background:#edf2f1;color:var(--ink);padding:12px 16px;border-radius:14px;font-weight:700}
+nav button.active{background:var(--accent);color:white}
+main{max-width:1100px;margin:auto;padding:18px}
+.view{display:none}.view.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 5px 18px #0000000a}
+.stat{font-size:34px;font-weight:800;margin-top:8px}.muted{color:var(--muted)}
+button.primary{background:var(--accent);color:#fff;border:0;border-radius:14px;padding:13px 18px;font-weight:800}
+button.secondary{background:#edf2f1;color:var(--ink);border:0;border-radius:14px;padding:12px 16px;font-weight:700}
+input,select,textarea{width:100%;padding:13px;border:1px solid #cfd9d7;border-radius:12px;background:#fff;font-size:16px}
+label{display:block;font-weight:700;margin:13px 0 7px}.q{padding:13px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}.qrow{display:grid;grid-template-columns:1fr 120px;gap:12px;align-items:center}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}
+table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:right}
+.empty{text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:650px){main{padding:12px}.qrow{grid-template-columns:1fr 95px}header{padding:22px 16px}}
+</style>
+</head>
+<body>
+<header><h1>مراقبة كتابة النيابة العامة</h1><p>نظام ميداني محلي للمراقبة والتتبع</p></header>
+<nav id="nav">
+<button data-v="home" class="active">الرئيسية</button>
+<button data-v="inspect">مراقبة جديدة</button>
+<button data-v="sections">الشعب</button>
+<button data-v="history">السجل</button>
+<button data-v="reports">التقارير</button>
+</nav>
+<main>
+<section id="home" class="view active">
+<div class="grid">
+<div class="card"><div class="muted">الشعب النشيطة</div><div class="stat" id="sSections">0</div></div>
+<div class="card"><div class="muted">إجمالي المراقبات</div><div class="stat" id="sInspections">0</div></div>
+<div class="card"><div class="muted">آخر مراقبة</div><div id="sLatest" class="muted" style="margin-top:10px">لا توجد بعد</div></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>ابدأ مراقبة جديدة</h2><p class="muted">اختر الشعبة وأدخل مؤشرات المراقبة ثم احفظ النتيجة.</p><button class="primary" onclick="show('inspect')">مراقبة جديدة</button></div>
+</section>
+
+<section id="inspect" class="view">
+<div class="card">
+<h2>إجراء مراقبة</h2>
+<label>الشعبة</label><select id="sectionSelect"></select>
+<label>الموظف المكلف</label><input id="employee" placeholder="اسم الموظف">
+<div id="questions"></div>
+<label>ملاحظات</label><textarea id="notes" rows="4" placeholder="أدخل الملاحظات عند الاقتضاء"></textarea>
+<div style="margin-top:16px"><button class="primary" onclick="saveInspection()">حفظ المراقبة</button></div>
+</div>
+</section>
+
+<section id="sections" class="view">
+<div class="toolbar"><input id="newSection" placeholder="اسم الشعبة الجديدة"><button class="primary" onclick="addSection()">إضافة شعبة</button></div>
+<div id="sectionList" class="grid"></div>
+</section>
+
+<section id="history" class="view">
+<div class="card"><h2>سجل المراقبات</h2><div id="historyList"></div></div>
+</section>
+
+<section id="reports" class="view">
+<div class="card"><h2>التقارير</h2><div id="report"></div><button class="secondary" onclick="backup()">تصدير نسخة احتياطية</button><input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restore(this)">
+<button class="secondary" onclick="document.getElementById('restoreFile').click()">استرجاع نسخة</button></div>
+</section>
+</main>
+<script>
+const KEY='niyaba_monitor_free_v1';
+const defaultQuestions=[
+'عدد الملفات المسجلة إلى حدود تاريخ يومه','عدد الملفات المحالة من شعبة أخرى',
+'عدد الملفات المحالة للدراسة','عدد الملفات في طور الإنجاز','عدد الملفات بدون إجراء',
+'عدد الملفات الممسوحة ضوئياً','عدد الملفات غير الممسوحة ضوئياً'];
+const names=['شعبة المحاضر العادية','شعبة المحاضر التلبسية','شعبة جنح السير','شعبة مخالفات السير','شعبة الشكايات','شعبة الجنحي العادي','شعبة الجنحي سير','شعبة الأبوستيل','شعبة المستأنفات العادية','شعبة المستأنفات التلبسية','شعبة الحالة المدنية','شعبة تدخل النيابة العامة في القضايا المدنية','شعبة مكتب الضبط'];
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||{sections:names.map((name,i)=>({id:i+1,name,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${i+1}_${j}`,label,active:true}))})),inspections:[]};
+function persist(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));render()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function render(){
+sSections.textContent=db.sections.filter(s=>s.active).length;sInspections.textContent=db.inspections.length;
+sLatest.textContent=db.inspections[0]?`${db.inspections[0].sectionName} — ${new Date(db.inspections[0].date).toLocaleString('ar-MA')}`:'لا توجد بعد';
+sectionSelect.innerHTML=db.sections.filter(s=>s.active).map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+renderQuestions();renderSections();renderHistory();renderReport();
+}
+sectionSelect.onchange=renderQuestions;
+function renderQuestions(){let s=db.sections.find(x=>x.id==sectionSelect.value)||db.sections.find(x=>x.active);if(!s)return;questions.innerHTML=s.questions.filter(q=>q.active).map(q=>`<div class="q"><div class="qrow"><div>${esc(q.label)}</div><input type="number" min="0" inputmode="numeric" data-q="${q.id}" value="0"></div></div>`).join('')}
+function saveInspection(){let s=db.sections.find(x=>x.id==sectionSelect.value);if(!s)return;let answers={};document.querySelectorAll('[data-q]').forEach(i=>answers[i.dataset.q]=Number(i.value)||0);db.inspections.unshift({id:crypto.randomUUID(),sectionId:s.id,sectionName:s.name,date:new Date().toISOString(),employee:employee.value.trim(),answers,questions:s.questions.map(q=>({...q})),notes:notes.value.trim()});employee.value='';notes.value='';persist();alert('تم حفظ المراقبة بنجاح');show('history')}
+function addSection(){let n=newSection.value.trim();if(!n)return;let id=Date.now();db.sections.push({id,name:n,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${id}_${j}`,label,active:true}))});newSection.value='';persist()}
+function renderSections(){sectionList.innerHTML=db.sections.filter(s=>s.active).map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p class="muted">${s.questions.filter(q=>q.active).length} مؤشرات</p><button class="secondary" onclick="addQuestion(${s.id})">إضافة مؤشر</button></div>`).join('')}
+function addQuestion(id){let label=prompt('اكتب اسم المؤشر الجديد');if(!label||!label.trim())return;let s=db.sections.find(x=>x.id==id);s.questions.push({id:crypto.randomUUID(),label:label.trim(),active:true});persist()}
+function renderHistory(){historyList.innerHTML=db.inspections.length?`<table><thead><tr><th>الشعبة</th><th>التاريخ</th><th>الموظف</th></tr></thead><tbody>${db.inspections.map(i=>`<tr><td>${esc(i.sectionName)}</td><td>${new Date(i.date).toLocaleString('ar-MA')}</td><td>${esc(i.employee||'—')}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">لا توجد مراقبات مسجلة.</div>'}
+function renderReport(){report.innerHTML=db.sections.map(s=>{let n=db.inspections.filter(i=>i.sectionId==s.id).length;return `<p><b>${esc(s.name)}</b> : ${n} مراقبة</p>`}).join('')||'<div class="empty">لا توجد بيانات.</div>'}
+function backup(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='NiyabaMonitor_Backup.json';a.click()}
+function restore(el){let f=el.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);persist();alert('تم استرجاع النسخة')}catch(e){alert('النسخة غير صالحة')}};r.readAsText(f)}
+function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+render();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body></html>

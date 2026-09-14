@@ -1,0 +1,11 @@
+{
+  "name":"مراقبة كتابة النيابة العامة",
+  "short_name":"مراقبة النيابة",
+  "start_url":"./",
+  "display":"standalone",
+  "orientation":"landscape",
+  "background_color":"#f3f5f5",
+  "theme_color":"#163b3b",
+  "lang":"ar",
+  "dir":"rtl"
+}
