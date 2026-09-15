@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><title>مراقبة كتابة النيابة العامة — Stable 1.5 — إصلاح التنقل والتوافق مع iPad</title><style>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><title>مراقبة كتابة النيابة العامة — Stable 1.0 — الإصدار المبسط الاحترافي</title><style>
 :root{--navy:#102f35;--teal:#1d5b5a;--gold:#c8a45d;--bg:#f3f6f5;--paper:#fff;--ink:#162527;--muted:#6a7a7a;--line:#dce5e3;--shadow:0 16px 45px rgba(15,45,50,.09)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg)}body{direction:rtl}button,input,select,textarea{font:inherit}button{cursor:pointer}
 .app{min-height:100vh;display:grid;grid-template-columns:270px 1fr}.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,var(--navy),#0b282e);color:#fff;padding:22px 16px;display:flex;flex-direction:column;z-index:20}
@@ -16,7 +16,7 @@
 .modal{position:fixed;inset:0;background:#092327a6;backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:16px;z-index:40}.modal.show{display:flex}.modalbox{background:#fff;border-radius:22px;max-width:900px;width:100%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 30px 80px #0000004d}.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.review-item{background:#f5f8f7;padding:12px;border-radius:12px}.review-item b{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.mobile-head{display:none}
 
 .followup-only{display:none}.followup-only.visible{display:block}
-/* Stable 1.5 — institutional release candidate (based on V21) */
+/* Stable 1.0 — institutional release candidate (based on V21) */
 :root{--focus:#1d5b5a;--soft:#f7faf9}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #c8a45d55;outline-offset:2px}
 .sidebar{transition:transform .25s ease}
@@ -49,28 +49,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media(max-width:900px){.home-hero{display:block}.home-hero .hero-actions{margin-top:18px}.home-efficiency{grid-template-columns:1fr}.home-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.quick-grid{grid-template-columns:1fr}.home-hero h1{font-size:25px}.content{padding:18px 14px}.topbar{padding:0 14px}.user-pill{display:none}.topbar-tools{gap:5px}.top-action small{display:none}}
 .admin-home-card{margin-top:14px;border:1px solid #d9c58f;background:linear-gradient(135deg,#fffdf6,#f8f5e9);border-radius:18px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 10px 28px rgba(15,45,50,.07)}.admin-home-card .admin-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#123f45;color:#d9c78e;font-size:23px}.admin-home-card h3{margin:0 0 4px;font-size:15px}.admin-home-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}.admin-home-card .btn{white-space:nowrap}@media(max-width:600px){.admin-home-card{align-items:flex-start}.admin-home-card .btn{padding:9px 11px;font-size:11px}}.followup-only{display:block!important}
-</style>
-<style id="ipad-final-layout">
-@media (min-width:601px) and (max-width:1180px){
-  .app{grid-template-columns:220px 1fr}
-  .sidebar{padding:18px 12px}
-  .brand img{width:48px;height:48px}
-  .menu button{min-height:50px;padding:12px 10px}
-  .content{padding:24px 22px}
-  .topbar{padding:0 18px}
-  .home-efficiency{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width:1180px){
-  button,.menu button,.mobile-nav button,.top-action{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-}
-@supports (-webkit-touch-callout:none){
-  button{cursor:pointer}
-  .menu button{user-select:none;-webkit-user-select:none}
-}
-</style>
-</head><body><div class="app">
+</style></head><body><div class="app">
 <aside class="sidebar"><div class="brand"><img src="icon-180.png"><div><strong>مراقبة كتابة<br>النيابة العامة</strong><small>نظام ميداني محلي للمراقبة والتتبع</small></div></div>
 <div class="side-title">العمل اليومي</div><div class="menu">
 <button data-v="home" class="active"><span class="ico">⌂</span>الرئيسية</button><button data-v="inspect"><span class="ico">＋</span>مراقبة جديدة</button><button data-v="history"><span class="ico">◷</span>المراقبات السابقة</button><button data-v="command"><span class="ico">◫</span>لوحة القيادة</button><button data-v="central"><span class="ico">⌕</span>البحث</button><button data-v="reports"><span class="ico">▥</span>التقارير</button><button data-v="sections"><span class="ico">⚙</span>مدبّر البرنامج</button><button data-v="security"><span class="ico">🔒</span>الأمن</button></div>
@@ -98,7 +77,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <div class="eff pending-eff"><div class="eff-top"><span class="eff-icon">◌</span><span class="badge pending">في انتظار التقرير</span></div><div class="name">نسبة إنجاز الملفات المحالة للدراسة</div><div class="num">—</div><div class="pending-line">سيتم تفعيل المؤشر بمجرد إضافة تقرير تتبع الدراسة.</div></div>
 </div>
 <div class="admin-home-card"><div style="display:flex;align-items:center;gap:12px"><div class="admin-icon">⚙</div><div><h3>مدبّر البرنامج</h3><p>إضافة الشعب وإدارة مؤشرات ومهام المراقبة.</p></div></div><button class="btn btn-gold" onclick="show('sections')">فتح المدبّر</button></div><div class="home-grid"><div class="panel quick-panel"><div class="section-head" style="margin:0 0 10px"><div><h2>إجراءات سريعة</h2><p>أهم ما تحتاجه أثناء العمل اليومي</p></div></div><div class="quick-grid"><button class="quick-btn" onclick="show('inspect')"><b>＋</b><span>مراقبة جديدة</span><small>تسجيل مراقبة ميدانية</small></button><button class="quick-btn" onclick="show('history')"><b>◷</b><span>المراقبات السابقة</span><small>عرض السجل والتفاصيل</small></button><button class="quick-btn" onclick="show('central')"><b>⌕</b><span>بحث مركزي</span><small>العثور على أي مراقبة</small></button><button class="quick-btn" onclick="show('reports')"><b>▥</b><span>التقارير</span><small>إعداد وطباعة التقارير</small></button></div></div>
-<div class="panel status-panel"><div class="section-head" style="margin:0 0 10px"><div><h2>وضعية النظام</h2><p>المعلومات الأساسية</p></div></div><div class="status-row"><span>المراقب</span><b>رئيس كتابة النيابة العامة</b></div><div class="status-row"><span>قاعدة البيانات</span><b class="status-good">● تعمل محلياً</b></div><div class="status-row"><span>النسخة</span><b>Stable 1.5</b></div><div class="status-note">يُنصح بإنشاء نسخة احتياطية دورية قبل إدخال دفعات كبيرة من البيانات.</div></div></div>
+<div class="panel status-panel"><div class="section-head" style="margin:0 0 10px"><div><h2>وضعية النظام</h2><p>المعلومات الأساسية</p></div></div><div class="status-row"><span>المراقب</span><b>رئيس كتابة النيابة العامة</b></div><div class="status-row"><span>قاعدة البيانات</span><b class="status-good">● تعمل محلياً</b></div><div class="status-row"><span>النسخة</span><b>Stable 1.0</b></div><div class="status-note">يُنصح بإنشاء نسخة احتياطية دورية قبل إدخال دفعات كبيرة من البيانات.</div></div></div>
 </section>
 <section id="inspect" class="view"><div class="section-head"><div><h2>إجراء مراقبة ميدانية</h2><p>تعبئة منظمة، تحقق آلي، ثم مراجعة واعتماد قبل الحفظ.</p></div><span class="badge">مراقبة جديدة</span></div><div class="panel"><div class="info-grid">
 <div class="field"><label>الشعبة</label><select id="sectionSelect"></select></div><div class="field"><label>تاريخ المراقبة</label><input id="inspectionDate" type="date"></div><div class="field"><label>الموظف المكلف</label><input id="employee" placeholder="اسم الموظف"></div><div class="field"><label>المراقب</label><input id="inspector" value="رئيس كتابة النيابة العامة" readonly></div><div class="field"><label>تاريخ المراقبة اللاحقة</label><input id="followUpDate" type="date"></div></div>
@@ -289,8 +268,8 @@ async function persist(){
   try{await saveDatabase();dbStatus='قاعدة البيانات محفوظة — إصدار '+DATA_VERSION;render();return true}
   catch(e){dbStatus='تعذر الحفظ الرئيسي — النسخة الاحتياطية المحلية مفعلة';render();return false}
 }
-function show(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));target.classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.mv===id));if(window.innerWidth<=1000)toggleMobileMenu(false);try{render()}catch(err){console.error('Render error:',err);toast('تم فتح الصفحة، لكن تعذر تحديث بعض المؤشرات.','warn')}if(id==='auditcenter') runReleaseAudit();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('.menu button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.v)));
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.mv===id));render();if(id==='auditcenter') runReleaseAudit();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
 function today(){return new Date().toISOString().slice(0,10)}
 function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random())}
 function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -495,7 +474,7 @@ function restore(el){
 }
 inspectionDate.value=today();
 render();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js?v=25');
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 loadDatabase();
 
 function priorityFor(i){
@@ -654,7 +633,7 @@ function openCentralDossier(id){const i=db.inspections.find(x=>x.id===id);if(!i)
 function clearCentralSearch(){['centralQuery','centralFrom','centralTo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});['centralSection','centralApproval'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});renderCentralSearch()}
 function printCentralDossier(){if(centralDossier.style.display==='none'||!centralDossier.innerHTML){alert('افتح ملفاً موحداً أولاً.');return}const old=document.title;document.title='الملف الموحد للمراقبة — نظام مراقبة كتابة النيابة العامة';centralDossier.classList.add('central-print-only');window.print();setTimeout(()=>{centralDossier.classList.remove('central-print-only');document.title=old},800)}
 
-// Stable 1.5 — تجربة المستخدم الاحترافية
+// Stable 1.0 — تجربة المستخدم الاحترافية
 const COMMAND_ITEMS=[
  ['home','لوحة القيادة الرئيسية','الرئيسية'],['inspect','إجراء مراقبة جديدة','مراقبة'],['sections','مدبّر البرنامج','إدارة الشعب والمؤشرات'],['history','سجل المراقبات','سجل'],['reports','التقارير والتحليل','تقارير'],['efficiency','نجاعة الإنجاز','نجاعة'],['followup','المراقبة اللاحقة','توصيات'],['analysis','التقييم والتحليل','تحليل'],['priority','التنبيهات والأولويات','تنبيهات'],['command','مركز القيادة','قيادة'],['security','الإدارة والأمن','أمن'],['workflow','اعتماد المراقبات','اعتماد'],['quality','تدقيق الجودة وسلامة البيانات','جودة'],['central','البحث المركزي والملف الموحد','بحث']
 ];
@@ -718,45 +697,4 @@ async function unlockApp(){const pin=document.getElementById('pinEntry').value;c
 const _showSecure=show; show=function(id){if(security.enabled&&!sessionUnlocked&&id!=='security'){document.getElementById('lockModal').classList.add('show');return;}if(['sections','reports','security'].includes(id)&&security.role!=='مدير النظام'){alert('هذه الوظيفة متاحة لمدير النظام فقط.');return;} _showSecure(id);};
 loadSecurity();
 if(security.enabled&&!sessionUnlocked)document.getElementById('lockModal').classList.add('show');
-</script><script>updateSystemStatus();</script>
-<script>
-/* STABLE_1_5_INDICATORS_FIX */
-(function(){
-  const INDICATORS = [
-    "عدد الملفات المسجلة إلى حدود تاريخ يومه",
-    "عدد الملفات المحالة من شعبة أخرى",
-    "عدد الملفات المحالة للدراسة",
-    "عدد الملفات في طور الإنجاز",
-    "عدد الملفات بدون إجراء",
-    "عدد الملفات الممسوحة ضوئياً",
-    "عدد الملفات غير الممسوحة ضوئياً"
-  ];
-  function findView(){
-    return document.querySelector('#newMonitoring,#view-new-monitoring,.view-new-monitoring,[data-view="new-monitoring"]');
-  }
-  function showFallback(){
-    const view=findView();
-    if(!view || view.offsetParent===null) return;
-    if(view.querySelector('[data-stable-indicators]')) return;
-    const existing=view.querySelector(
-      '#monitoringQuestions,#questionsContainer,#indicatorsContainer,#inspectionQuestions'
-    );
-    if(existing && existing.children.length) return;
-    const box=document.createElement('section');
-    box.setAttribute('data-stable-indicators','1');
-    box.style.cssText='margin-top:20px';
-    box.innerHTML='<h3 style="margin:0 0 12px">مؤشرات المراقبة</h3>'+
-      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">'+
-      INDICATORS.map((x,i)=>'<label style="display:block;padding:14px;border:1px solid #ddd;border-radius:12px;background:#fff">'+
-      '<span style="display:block;font-weight:700;margin-bottom:8px">'+x+'</span>'+
-      '<input type="number" min="0" step="1" value="0" name="monitoring_indicator_'+(i+1)+'" style="width:100%;box-sizing:border-box;padding:9px;border-radius:8px;border:1px solid #ccc"></label>').join('')+
-      '</div>';
-    view.appendChild(box);
-  }
-  document.addEventListener('DOMContentLoaded',showFallback);
-  document.addEventListener('click',function(){setTimeout(showFallback,80);});
-  setTimeout(showFallback,500);
-})();
-</script>
-
-</body></html>
+</script><script>updateSystemStatus();</script></body></html>
