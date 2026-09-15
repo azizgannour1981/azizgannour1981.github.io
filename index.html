@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><title>مراقبة كتابة النيابة العامة — Stable 1.0 — الإصدار المبسط الاحترافي</title><style>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><title>مراقبة كتابة النيابة العامة — Stable 1.4 — إصلاح التنقل والتوافق مع iPad</title><style>
 :root{--navy:#102f35;--teal:#1d5b5a;--gold:#c8a45d;--bg:#f3f6f5;--paper:#fff;--ink:#162527;--muted:#6a7a7a;--line:#dce5e3;--shadow:0 16px 45px rgba(15,45,50,.09)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg)}body{direction:rtl}button,input,select,textarea{font:inherit}button{cursor:pointer}
 .app{min-height:100vh;display:grid;grid-template-columns:270px 1fr}.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,var(--navy),#0b282e);color:#fff;padding:22px 16px;display:flex;flex-direction:column;z-index:20}
@@ -268,8 +268,8 @@ async function persist(){
   try{await saveDatabase();dbStatus='قاعدة البيانات محفوظة — إصدار '+DATA_VERSION;render();return true}
   catch(e){dbStatus='تعذر الحفظ الرئيسي — النسخة الاحتياطية المحلية مفعلة';render();return false}
 }
-function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.mv===id));render();if(id==='auditcenter') runReleaseAudit();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function show(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));target.classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.mv===id));if(window.innerWidth<=1000)toggleMobileMenu(false);try{render()}catch(err){console.error('Render error:',err);toast('تم فتح الصفحة، لكن تعذر تحديث بعض المؤشرات.','warn')}if(id==='auditcenter') runReleaseAudit();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.menu button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.v)));
 function today(){return new Date().toISOString().slice(0,10)}
 function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random())}
 function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -474,7 +474,7 @@ function restore(el){
 }
 inspectionDate.value=today();
 render();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js?v=25');
 loadDatabase();
 
 function priorityFor(i){
