@@ -1,81 +1,153 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#163b3b">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
-<title>مراقبة كتابة النيابة العامة</title>
-<style>
-:root{--bg:#f3f5f5;--card:#fff;--ink:#172525;--muted:#687575;--accent:#1f5552;--accent2:#d5b46b;--line:#dde4e3}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-header{background:linear-gradient(135deg,#123636,#27645f);color:white;padding:26px 22px 22px;border-radius:0 0 28px 28px;box-shadow:0 8px 24px #0001}
-header h1{margin:0;font-size:25px}header p{margin:7px 0 0;opacity:.82}
-nav{display:flex;gap:8px;overflow:auto;padding:12px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
-nav button{white-space:nowrap;border:0;background:#edf2f1;color:var(--ink);padding:12px 16px;border-radius:14px;font-weight:700}
-nav button.active{background:var(--accent);color:white}
-main{max-width:1100px;margin:auto;padding:18px}
-.view{display:none}.view.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 5px 18px #0000000a}
-.stat{font-size:34px;font-weight:800;margin-top:8px}.muted{color:var(--muted)}
-button.primary{background:var(--accent);color:#fff;border:0;border-radius:14px;padding:13px 18px;font-weight:800}
-button.secondary{background:#edf2f1;color:var(--ink);border:0;border-radius:14px;padding:12px 16px;font-weight:700}
-input,select,textarea{width:100%;padding:13px;border:1px solid #cfd9d7;border-radius:12px;background:#fff;font-size:16px}
-label{display:block;font-weight:700;margin:13px 0 7px}.q{padding:13px 0;border-bottom:1px solid var(--line)}
-.q:last-child{border-bottom:0}.qrow{display:grid;grid-template-columns:1fr 120px;gap:12px;align-items:center}
-.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}
-table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:right}
-.empty{text-align:center;padding:35px;color:var(--muted)}
-@media(max-width:650px){main{padding:12px}.qrow{grid-template-columns:1fr 95px}header{padding:22px 16px}}
-</style>
-</head>
-<body>
-<header><h1>مراقبة كتابة النيابة العامة</h1><p>نظام ميداني محلي للمراقبة والتتبع</p></header>
-<nav id="nav">
-<button data-v="home" class="active">الرئيسية</button>
-<button data-v="inspect">مراقبة جديدة</button>
-<button data-v="sections">الشعب</button>
-<button data-v="history">السجل</button>
-<button data-v="reports">التقارير</button>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><title>مراقبة كتابة النيابة العامة — Stable 1.0</title><style>
+:root{--navy:#102f35;--teal:#1d5b5a;--gold:#c8a45d;--bg:#f3f6f5;--paper:#fff;--ink:#162527;--muted:#6a7a7a;--line:#dce5e3;--shadow:0 16px 45px rgba(15,45,50,.09)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg)}body{direction:rtl}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:270px 1fr}.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,var(--navy),#0b282e);color:#fff;padding:22px 16px;display:flex;flex-direction:column;z-index:20}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 7px 24px;border-bottom:1px solid #ffffff1c}.brand img{width:54px;height:54px;border-radius:16px;border:1px solid #ffffff33}.brand strong{font-size:15px;line-height:1.5}.brand small{display:block;color:#bdd0d0;margin-top:2px;font-size:11px}
+.side-title{font-size:11px;color:#93b0b0;font-weight:900;margin:24px 9px 9px}.menu{display:grid;gap:7px}.menu button{border:1px solid transparent;background:transparent;color:#dbe8e7;text-align:right;padding:13px;border-radius:14px;font-weight:800;display:flex;align-items:center;gap:11px}.menu button.active{background:linear-gradient(90deg,#c8a45d33,#ffffff14);border-color:#c8a45d47;color:#fff}.menu .ico{width:25px;text-align:center;font-size:17px}.side-footer{margin-top:auto;background:#ffffff0f;border:1px solid #ffffff14;padding:13px;border-radius:15px;color:#b9cccc;font-size:11px;line-height:1.7}
+.main{min-width:0}.topbar{height:74px;background:#ffffffeb;backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:15}.crumb{font-size:13px;color:var(--muted)}.crumb b{color:var(--ink)}.user-pill{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:99px;background:#fff;font-size:12px;font-weight:800}.dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.content{padding:28px 30px;max-width:1500px;margin:auto}.view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#12383e,#1f5c59 62%,#2b7068);border-radius:26px;padding:28px;color:#fff;box-shadow:0 20px 50px #12383e2e;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #e5c98538;border-radius:50%;left:-80px;top:-140px;box-shadow:0 0 0 35px #e5c9850a,0 0 0 70px #e5c98506}.hero h1{margin:0;font-size:29px}.hero p{margin:8px 0 0;color:#d7e6e4;font-size:13px}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:13px;padding:11px 16px;font-weight:900}.btn-primary{background:#fff;color:var(--navy)}.btn-gold{background:var(--gold);color:#fff}.btn-light{background:#edf3f1;color:var(--ink)}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:26px 0 13px}.section-head h2{margin:0;font-size:20px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kpi{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.kpi:before{content:"";position:absolute;right:0;top:0;width:4px;height:100%;background:var(--gold)}.kpi .label{color:var(--muted);font-size:12px;font-weight:800}.kpi .value{font-size:31px;font-weight:950;margin:7px 0 4px}.kpi .sub{font-size:11px;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:19px}.two{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-top:14px}.efficiency{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.eff{border:1px solid var(--line);border-radius:17px;padding:16px;background:linear-gradient(180deg,#fff,#f8faf9)}.eff .name{font-weight:900;font-size:13px}.eff .num{font-size:33px;font-weight:950;margin:7px 0}.ringbar,.bar{height:8px;background:#e8eeec;border-radius:99px;overflow:hidden}.ringbar i,.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--gold))}.badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:99px;background:#edf3f1;font-size:11px;font-weight:900}.pending{background:#fff8e6;color:#795c1f}.list{display:grid;gap:8px}.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}.row:last-child{border-bottom:0}.muted{color:var(--muted)}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-weight:900;font-size:12px;margin:0 0 7px}.field input,.field select,.field textarea,input,select,textarea{width:100%;padding:12px 13px;border:1px solid #ccd9d6;border-radius:12px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #1d5b5a14}
+.inspection-card{margin-top:16px}.q{padding:13px 0;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:0}.qrow{display:grid;grid-template-columns:1fr 145px;gap:14px;align-items:center}.qname{font-weight:750;line-height:1.55}.qinput{text-align:center;font-weight:900}.live-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.mini-stat{background:#f7faf9;border:1px solid var(--line);border-radius:15px;padding:13px}.mini-stat .v{font-size:27px;font-weight:950;margin-top:4px}.alert{padding:11px 13px;border-radius:12px;margin-top:10px;background:#fff7e4;border:1px solid #ead49b;color:#765919;font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px}table{width:100%;border-collapse:collapse;min-width:1200px}th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle;font-size:12px}th{background:#f5f8f7;font-weight:950;white-space:nowrap}tr:last-child td{border-bottom:0}
+.section-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.section-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.section-card h3{margin:0;font-size:15px}.section-card p{font-size:11px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:#092327a6;backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:16px;z-index:40}.modal.show{display:flex}.modalbox{background:#fff;border-radius:22px;max-width:900px;width:100%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 30px 80px #0000004d}.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.review-item{background:#f5f8f7;padding:12px;border-radius:12px}.review-item b{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.mobile-head{display:none}
+
+/* Stable 1.0 — institutional release candidate (based on V21) */
+:root{--focus:#1d5b5a;--soft:#f7faf9}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #c8a45d55;outline-offset:2px}
+.sidebar{transition:transform .25s ease}
+.topbar-tools{display:flex;align-items:center;gap:8px}.top-action{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:9px 12px;font-weight:900}.top-action:hover{border-color:#b7cbc7;background:#f8fbfa}.status-chip{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:12px;background:#f3f8f6;border:1px solid var(--line);font-size:11px;font-weight:900}.status-chip .pulse{width:7px;height:7px;border-radius:50%;background:#2f8a63;box-shadow:0 0 0 4px #2f8a6318}.mobile-nav{display:none}.mobile-overlay{display:none}.command-modal{position:fixed;inset:0;background:#092327a8;backdrop-filter:blur(7px);z-index:70;align-items:flex-start;justify-content:center;padding:9vh 16px;display:none}.command-modal.show{display:flex}.command-box{width:min(720px,100%);background:#fff;border-radius:22px;box-shadow:0 30px 90px #0005;overflow:hidden}.command-head{display:flex;align-items:center;gap:10px;padding:14px;border-bottom:1px solid var(--line)}.command-head input{border:0!important;box-shadow:none!important;font-size:16px;font-weight:800;padding:12px}.command-list{max-height:55vh;overflow:auto;padding:8px}.command-item{width:100%;border:0;background:#fff;text-align:right;display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-radius:13px;margin:2px 0}.command-item:hover,.command-item.active{background:#f2f7f5}.command-item b{font-size:13px}.command-item small{color:var(--muted)}.command-foot{padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:10px;display:flex;justify-content:space-between}.page-progress{height:3px;background:transparent;position:fixed;top:74px;right:0;left:0;z-index:16;pointer-events:none}.page-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .25s ease}.empty{padding:28px 18px;text-align:center;color:var(--muted);background:#fafcfb;border:1px dashed #cddbd8;border-radius:15px;font-weight:800}.toast-stack{position:fixed;left:18px;bottom:18px;z-index:100;display:grid;gap:8px}.toast{background:#12383e;color:#fff;padding:12px 15px;border-radius:13px;box-shadow:0 14px 35px #09232733;font-size:12px;font-weight:900;animation:toastIn .25s ease}.toast.warn{background:#795c1f}.toast.ok{background:#176044}@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{display:none}.mobile-head{display:block;font-weight:950}.topbar{padding:0 15px}.content{padding:18px 15px}.kpis{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.section-grid{grid-template-columns:repeat(2,1fr)}.efficiency{grid-template-columns:1fr}.info-grid,.review-grid{grid-template-columns:1fr}}
+@media(max-width:1000px){.topbar{height:68px}.page-progress{top:68px}.topbar-tools .status-chip{display:none}.mobile-overlay{position:fixed;inset:0;background:#09232766;z-index:25}.sidebar.mobile-open{display:flex;position:fixed;right:0;top:0;bottom:0;width:min(310px,88vw);height:100vh;transform:none;z-index:60;box-shadow:-20px 0 50px #0003}.mobile-overlay.show{display:block}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;background:#ffffffed;backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px;box-shadow:0 15px 40px #09232722;z-index:30;padding:6px}.mobile-nav button{border:0;background:transparent;border-radius:12px;padding:8px 4px;color:var(--muted);font-size:10px;font-weight:900}.mobile-nav button.active{background:#edf5f2;color:var(--teal)}.mobile-nav .m-ico{display:block;font-size:16px;margin-bottom:2px}.content{padding-bottom:88px}}
+@media(max-width:600px){.hero{padding:22px}.hero h1{font-size:23px}.kpis{gap:9px}.kpi{padding:14px}.kpi .value{font-size:25px}.section-grid{grid-template-columns:1fr}.qrow{grid-template-columns:1fr 105px}.live-grid{grid-template-columns:1fr}.topbar{height:62px}.user-pill{font-size:10px}.content{padding-bottom:85px}}
+@media print{.sidebar,.topbar,.hero-actions,nav,.actions{display:none!important}.main{display:block}.content{padding:0}.panel,.kpi{box-shadow:none;border:1px solid #ddd}body{background:#fff}}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:12px}.menu{grid-template-columns:repeat(3,1fr)}.side-title,.side-footer{display:none}.brand{border-bottom:0;padding-bottom:8px}.content{padding:15px}.topbar{padding:0 15px}}
+
+.priority-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.priority-card{border:1px solid var(--line);border-radius:18px;padding:17px;background:#fff;box-shadow:var(--shadow)}.priority-card .num{font-size:30px;font-weight:950;margin:7px 0}.sev-high{background:#fff0ef;color:#8b2f2a;border-color:#efc4c0}.sev-med{background:#fff8e6;color:#795c1f;border-color:#ead49b}.sev-low{background:#edf7f3;color:#246653;border-color:#c7e1d7}.priority-list{display:grid;gap:10px}.priority-item{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff;display:grid;grid-template-columns:55px 1fr auto;gap:12px;align-items:center}.priority-score{font-size:23px;font-weight:950;text-align:center}.priority-item h3{margin:0 0 4px;font-size:14px}.priority-item p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}.priority-reasons{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.priority-reasons span{font-size:10px;padding:4px 7px;border-radius:99px;background:#f3f6f5}.scorebar{height:7px;background:#e8eeec;border-radius:99px;overflow:hidden;margin-top:7px}.scorebar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold))}.notice{padding:13px 15px;border-radius:14px;background:#f5f8f7;border:1px solid var(--line);font-size:12px;line-height:1.7}@media(max-width:1000px){.priority-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.priority-grid{grid-template-columns:1fr}.priority-item{grid-template-columns:45px 1fr}}
+
+.exec-report{background:#fff;border:1px solid #d9e3e1;border-radius:18px;padding:28px;line-height:1.9}.exec-head{text-align:center;border-bottom:2px solid #c8a45d;padding-bottom:18px;margin-bottom:20px}.exec-head h1{font-size:23px;margin:0;color:#102f35}.exec-head p{margin:4px 0;color:#6a7a7a;font-size:12px}.exec-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.exec-meta div{background:#f5f8f7;border:1px solid #dce5e3;border-radius:12px;padding:10px}.exec-meta b{display:block;font-size:18px;color:#102f35}.exec-section{margin-top:20px}.exec-section h3{margin:0 0 8px;color:#1d5b5a;font-size:15px}.exec-bullets{margin:0;padding-right:20px}.exec-sign{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:35px;padding-top:18px;border-top:1px solid #dce5e3;text-align:center}.exec-sign div{min-height:60px}.report-filter-note{font-size:11px;color:#6a7a7a}@media print{.exec-report{border:0;padding:0}.exec-meta{grid-template-columns:repeat(4,1fr)}}
+
+.command-kpis .kpi{min-height:128px}.bar-chart{display:grid;gap:12px;margin-top:14px}.bar-row{display:grid;grid-template-columns:150px 1fr 55px;align-items:center;gap:10px}.bar-track{height:12px;background:#edf1f2;border-radius:99px;overflow:hidden}.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#0c5b5a,#c6a15b)}.narrative{display:grid;gap:10px}.narrative .insight{padding:13px 15px;border:1px solid #e6ecec;border-radius:12px;background:#fafcfc}.narrative .insight b{display:block;margin-bottom:4px}.rank{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f2}.rank:last-child{border-bottom:0}.rank-score{font-weight:800}.cc-print-only{display:none}@media print{.central-print-only{display:block!important;position:relative;visibility:visible!important}.central-print-only *{visibility:visible!important}.central-print-only{box-shadow:none!important;border:0!important}body *{visibility:hidden!important}.cc-print-only,.cc-print-only *{visibility:visible!important}.cc-print-only{display:block!important;position:absolute;left:0;top:0;width:100%;padding:24px;background:white}.sidebar,.topbar{display:none!important}}
+
+.security-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.security-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.security-card h3{margin:0 0 7px;font-size:14px}.security-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}.security-status{display:flex;align-items:center;gap:8px;margin-top:12px}.switch{position:relative;width:48px;height:26px;display:inline-block}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#ccd8d5;border-radius:99px;transition:.2s}.slider:before{content:"";position:absolute;width:20px;height:20px;right:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 6px #0002}.switch input:checked+.slider{background:var(--teal)}.switch input:checked+.slider:before{transform:translateX(-22px)}.lock-modal .modalbox{max-width:460px}.pin-input{font-size:24px;letter-spacing:7px;text-align:center;font-weight:950}.permission-list{display:grid;gap:8px;margin-top:12px}.permission-item{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:11px;background:#f5f8f7;font-size:12px}.ok{color:#246653;font-weight:900}.no{color:#8b2f2a;font-weight:900}@media(max-width:1000px){.security-grid{grid-template-columns:1fr}}
+
+.integrity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.integrity-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.health-ring{font-size:34px;font-weight:950;margin-top:7px}.health-good{color:#246653}.health-warn{color:#795c1f}.health-bad{color:#8b2f2a}.integrity-list{display:grid;gap:8px}.integrity-item{display:flex;justify-content:space-between;gap:12px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#fafcfc}.check-ok{color:#246653;font-weight:900}.check-warn{color:#795c1f;font-weight:900}.check-bad{color:#8b2f2a;font-weight:900}@media(max-width:1000px){.integrity-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.integrity-grid{grid-template-columns:1fr}}
+
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}.workflow-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.workflow-card b{display:block;font-size:25px;margin-top:8px}.workflow-actions{display:flex;gap:7px;flex-wrap:wrap}.state-draft{background:#eef2f1}.state-review{background:#fff4d9}.state-approved{background:#e6f5ee}.state-closed{background:#e9eef8}@media(max-width:1000px){.workflow-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.workflow-grid{grid-template-columns:1fr}}
+
+.central-search{margin-bottom:14px}.central-filters{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;gap:10px;margin-top:12px}.central-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.central-results{display:grid;gap:10px}.central-result{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow)}.central-result-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.central-result h3{margin:0;font-size:15px}.central-meta{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.central-snippet{font-size:12px;color:var(--muted);line-height:1.75;margin:8px 0}.central-actions{display:flex;gap:7px;flex-wrap:wrap}.central-dossier{margin-top:14px}.dossier-head{text-align:center;border-bottom:2px solid #c8a45d;padding-bottom:14px;margin-bottom:16px}.dossier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.dossier-box{background:#f6f9f8;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:11px}.dossier-box b{display:block;font-size:17px;margin-top:4px}.dossier-section{margin-top:18px}.dossier-section h3{font-size:14px;color:#1d5b5a;margin-bottom:8px}.dossier-table{width:100%;border-collapse:collapse}.dossier-table th,.dossier-table td{border:1px solid #dfe7e5;padding:8px;font-size:11px;text-align:right}.dossier-table th{background:#f2f6f5}.match{background:#fff8dc;border-radius:4px;padding:0 2px}@media(max-width:1000px){.central-filters{grid-template-columns:repeat(2,1fr)}.central-kpis{grid-template-columns:repeat(2,1fr)}.dossier-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.central-filters{grid-template-columns:1fr}.central-kpis{grid-template-columns:1fr}.dossier-grid{grid-template-columns:1fr}.central-result-head{flex-direction:column}}
+
+.v20-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.v20-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.v20-card h3{margin:0 0 8px}.v20-score{font-size:32px;font-weight:950;color:var(--teal)}.v20-tests{display:grid;gap:10px}.v20-test{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:#fff}.v20-test .ok{color:#176b50;font-weight:900}.v20-test .warn{color:#a36a16;font-weight:900}.v20-test .bad{color:#a13a3a;font-weight:900}.v20-progress{height:10px;background:#e8eeee;border-radius:99px;overflow:hidden;margin-top:10px}.v20-progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px}.v20-meta{display:flex;flex-wrap:wrap;gap:8px}.v20-chip{padding:7px 10px;border:1px solid var(--line);border-radius:99px;font-size:12px;font-weight:800;background:#fafcfc}.v20-actions{display:flex;gap:8px;flex-wrap:wrap}.v20-note{padding:12px 14px;border-right:4px solid var(--gold);background:#fbfaf6;border-radius:10px;line-height:1.8}.v20-table{width:100%;border-collapse:collapse}.v20-table th,.v20-table td{padding:10px;border-bottom:1px solid var(--line);text-align:right}.v20-table th{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.v20-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.v20-grid{grid-template-columns:1fr}.v20-test{align-items:flex-start;flex-direction:column}}
+</style></head><body><div class="app">
+<aside class="sidebar"><div class="brand"><img src="icon-180.png"><div><strong>مراقبة كتابة<br>النيابة العامة</strong><small>نظام ميداني محلي للمراقبة والتتبع</small></div></div>
+<div class="side-title">لوحة العمل</div><div class="menu">
+<button data-v="home" class="active"><span class="ico">⌂</span>الرئيسية</button><button data-v="inspect"><span class="ico">＋</span>مراقبة جديدة</button><button data-v="sections"><span class="ico">▦</span>الشعب والمؤشرات</button><button data-v="history"><span class="ico">◷</span>سجل المراقبات</button><button data-v="reports"><span class="ico">▥</span>التقارير</button><button data-v="efficiency"><span class="ico">◈</span>نجاعة الإنجاز</button><button data-v="followup"><span class="ico">✓</span>متابعة التوصيات</button><button data-v="analysis"><span class="ico">◉</span>التقييم والتحليل</button><button data-v="priority"><span class="ico">⚠</span>التنبيهات والأولويات</button><button data-v="command"><span class="ico">◫</span>مركز القيادة</button><button data-v="security"><span class="ico">🔐</span>الإدارة والأمن</button><button data-v="workflow"><span class="ico">◉</span>اعتماد المراقبات</button><button data-v="quality"><span class="ico">✓</span>تدقيق الجودة</button><button data-v="central"><span class="ico">⌕</span>البحث المركزي</button><button data-v="auditcenter"><span class="ico">✓</span>الفحص المؤسسي</button></div>
+<div class="side-title">حالة النظام</div><div class="side-footer">قاعدة البيانات المحلية مؤمنة بإصدار مستقل. استخدم النسخ الاحتياطي دورياً للحفاظ على البيانات.</div></aside>
+<div id="mobileOverlay" class="mobile-overlay" onclick="toggleMobileMenu(false)"></div>
+<nav class="mobile-nav" aria-label="التنقل السريع">
+<button data-mv="home" onclick="show('home')"><span class="m-ico">⌂</span>الرئيسية</button>
+<button data-mv="inspect" onclick="show('inspect')"><span class="m-ico">＋</span>مراقبة</button>
+<button data-mv="central" onclick="show('central')"><span class="m-ico">⌕</span>بحث</button>
+<button data-mv="command" onclick="show('command')"><span class="m-ico">◫</span>قيادة</button>
+<button data-mv="reports" onclick="show('reports')"><span class="m-ico">▥</span>تقارير</button>
 </nav>
-<main>
-<section id="home" class="view active">
-<div class="grid">
-<div class="card"><div class="muted">الشعب النشيطة</div><div class="stat" id="sSections">0</div></div>
-<div class="card"><div class="muted">إجمالي المراقبات</div><div class="stat" id="sInspections">0</div></div>
-<div class="card"><div class="muted">آخر مراقبة</div><div id="sLatest" class="muted" style="margin-top:10px">لا توجد بعد</div></div>
+<div id="commandModal" class="command-modal" role="dialog" aria-modal="true" aria-label="البحث السريع"><div class="command-box"><div class="command-head"><span style="font-size:18px">⌕</span><input id="commandInput" autocomplete="off" placeholder="ابحث عن وظيفة أو افتح شاشة…" oninput="renderCommandPalette()" onkeydown="commandKeydown(event)"><button class="btn btn-light" onclick="closeCommandPalette()">إغلاق</button></div><div id="commandList" class="command-list"></div><div class="command-foot"><span>Enter للفتح</span><span>Esc للإغلاق</span></div></div></div>
+<div id="toastStack" class="toast-stack" aria-live="polite"></div>
+<main class="main"><header class="topbar"><div class="mobile-head"><button class="top-action" onclick="toggleMobileMenu()" aria-label="فتح القائمة">☰</button> مراقبة كتابة النيابة العامة</div><div class="crumb">لوحة القيادة / <b id="crumbName">الرئيسية</b></div><div class="topbar-tools"><button class="top-action" onclick="openCommandPalette()" title="بحث سريع">⌕ بحث سريع <small>Ctrl K</small></button><div class="status-chip"><span class="pulse"></span><span id="systemStatusText">النظام يعمل</span></div><div class="user-pill"><span class="dot"></span> المراقب: رئيس كتابة النيابة العامة</div></div></header><div class="page-progress"><i id="pageProgress"></i></div>
+<div class="content">
+<section id="home" class="view active"><div class="hero"><h1>لوحة القيادة الرئيسية</h1><p>نظرة مؤسسية موحدة على عمليات المراقبة، مؤشرات الإنجاز، وحالة أداء شعب كتابة النيابة العامة.</p><div class="hero-actions"><button class="btn btn-primary" onclick="show('inspect')">＋ إجراء مراقبة جديدة</button><button class="btn btn-gold" onclick="show('reports')">عرض التقارير</button></div></div>
+<div class="section-head"><div><h2>مؤشرات المتابعة</h2><p>ملخص لحظي للبيانات المسجلة داخل البرنامج</p></div></div>
+<div class="kpis"><div class="kpi"><div class="label">الشعب النشيطة</div><div class="value" id="sSections">0</div><div class="sub">الشعب المعتمدة في النظام</div></div><div class="kpi"><div class="label">إجمالي المراقبات</div><div class="value" id="sInspections">0</div><div class="sub">عمليات مراقبة محفوظة</div></div><div class="kpi"><div class="label">آخر مراقبة</div><div id="sLatest" style="font-size:15px;font-weight:900;margin-top:13px">لا توجد بعد</div><div class="sub" style="margin-top:7px">آخر عملية مسجلة</div></div><div class="kpi"><div class="label">المسح الضوئي</div><div class="value" id="sScan">—</div><div class="sub">نسبة إجمالية من المراقبات</div></div></div>
+<div class="section-head"><div><h2>مؤشرات نجاعة الإنجاز</h2><p>المؤشرات المستخرجة من تقارير النجاعة المعتمدة</p></div><span class="badge">آخر البيانات: 17 غشت 2026</span></div>
+<div class="panel"><div class="efficiency" id="efficiencyCards"></div></div>
+<div class="two"><div class="panel"><div class="section-head" style="margin:0 0 10px"><div><h2>آخر المراقبات</h2><p>آخر خمس عمليات مراقبة مسجلة</p></div></div><div id="homeRecent"></div></div>
+<div class="panel"><div class="section-head" style="margin:0 0 10px"><div><h2>إجراءات سريعة</h2><p>الوصول المباشر إلى أهم وظائف البرنامج</p></div></div><div class="list">
+<div class="row"><span>إجراء مراقبة ميدانية</span><button class="btn btn-light" onclick="show('inspect')">فتح</button></div><div class="row"><span>سجل المراقبات</span><button class="btn btn-light" onclick="show('history')">فتح</button></div><div class="row"><span>التقارير والتحليل</span><button class="btn btn-light" onclick="show('reports')">فتح</button></div><div class="row"><span>الشعب والمؤشرات</span><button class="btn btn-light" onclick="show('sections')">فتح</button></div></div></div></div></section>
+
+<section id="inspect" class="view"><div class="section-head"><div><h2>إجراء مراقبة ميدانية</h2><p>تعبئة منظمة، تحقق آلي، ثم مراجعة واعتماد قبل الحفظ.</p></div><span class="badge">مراقبة جديدة</span></div><div class="panel"><div class="info-grid">
+<div class="field"><label>الشعبة</label><select id="sectionSelect"></select></div><div class="field"><label>تاريخ المراقبة</label><input id="inspectionDate" type="date"></div><div class="field"><label>الموظف المكلف</label><input id="employee" placeholder="اسم الموظف"></div><div class="field"><label>المراقب</label><input id="inspector" value="رئيس كتابة النيابة العامة" readonly></div><div class="field"><label>حالة المراقبة</label><select id="status"><option value="مكتملة">مكتملة</option><option value="تحتاج إلى متابعة">تحتاج إلى متابعة</option><option value="تستوجب التدخل">تستوجب التدخل</option></select></div><div class="field"><label>حالة التوصيات</label><select id="recommendationStatus"><option value="غير محددة">غير محددة</option><option value="قيد المتابعة">قيد المتابعة</option><option value="منجزة">منجزة</option><option value="غير منجزة">غير منجزة</option></select></div><div class="field"><label>تاريخ المتابعة</label><input id="followUpDate" type="date"></div></div>
+<div class="panel inspection-card"><div class="section-head" style="margin:0 0 10px"><div><h2 style="font-size:17px">مؤشرات المراقبة</h2><p>أدخل الأرقام كما تمت معاينتها ميدانياً.</p></div><span class="badge" id="indicatorCount">0 مؤشرات</span></div><div id="questions"></div><div id="liveAlerts"></div>
+<div class="live-grid"><div class="mini-stat"><div class="muted">إجمالي الملفات المسجلة</div><div class="v" id="liveTotal">0</div></div><div class="mini-stat"><div class="muted">نسبة المسح الضوئي</div><div class="v" id="liveScan">—</div><div class="bar"><i id="liveBar" style="width:0%"></i></div></div></div></div>
+<div class="field" style="margin-top:16px"><label>الملاحظات العامة</label><textarea id="notes" rows="4" placeholder="الملاحظات المسجلة أثناء المراقبة..."></textarea></div><div class="field" style="margin-top:14px"><label>الإجراءات والتوصيات</label><textarea id="recommendations" rows="4" placeholder="التوصيات أو الإجراءات المقترحة..."></textarea></div><div class="field" style="margin-top:14px"><label>ملاحظة المتابعة</label><textarea id="followUpNote" rows="3" placeholder="نتيجة أو ملاحظة المتابعة اللاحقة..."></textarea></div><div class="actions"><button class="btn btn-primary" onclick="openReview()">مراجعة قبل الاعتماد</button><button class="btn btn-light" onclick="resetForm()">تفريغ النموذج</button></div></div></section>
+
+<section id="sections" class="view"><div class="section-head"><div><h2>الشعب والمؤشرات</h2><p>إدارة الشعب وإضافة مؤشرات خاصة عند الحاجة.</p></div></div><div class="panel" style="margin-bottom:14px"><div style="display:flex;gap:9px;flex-wrap:wrap"><input id="newSection" placeholder="اسم الشعبة الجديدة" style="flex:1;min-width:220px"><button class="btn btn-primary" onclick="addSection()">إضافة شعبة</button></div></div><div id="sectionList" class="section-grid"></div></section>
+
+<section id="history" class="view"><div class="section-head"><div><h2>سجل المراقبات</h2><p>سجل تاريخي شامل لجميع عمليات المراقبة والبيانات المعتمدة.</p></div></div><div class="panel"><div class="toolbar" style="margin:12px 0">
+<input id="historySearch" placeholder="بحث باسم الشعبة أو الموظف...">
+<select id="historyStatus"><option value="">كل الحالات</option><option>مكتملة</option><option>تحتاج إلى متابعة</option><option>تستوجب التدخل</option></select>
+<input id="historyFrom" type="date" title="من تاريخ">
+<input id="historyTo" type="date" title="إلى تاريخ">
+<button class="btn btn-light" onclick="renderHistory()">تصفية</button>
 </div>
-<div class="card" style="margin-top:14px"><h2>ابدأ مراقبة جديدة</h2><p class="muted">اختر الشعبة وأدخل مؤشرات المراقبة ثم احفظ النتيجة.</p><button class="primary" onclick="show('inspect')">مراقبة جديدة</button></div>
-</section>
+<div id="historyList"></div></div></section>
 
-<section id="inspect" class="view">
-<div class="card">
-<h2>إجراء مراقبة</h2>
-<label>الشعبة</label><select id="sectionSelect"></select>
-<label>الموظف المكلف</label><input id="employee" placeholder="اسم الموظف">
-<div id="questions"></div>
-<label>ملاحظات</label><textarea id="notes" rows="4" placeholder="أدخل الملاحظات عند الاقتضاء"></textarea>
-<div style="margin-top:16px"><button class="primary" onclick="saveInspection()">حفظ المراقبة</button></div>
+<section id="efficiency" class="view">
+<div class="section-head"><div><h2>مؤشرات نجاعة الإنجاز</h2><p>لوحة مستقلة لمتابعة نسب الإنجاز المستخرجة من التقارير المعتمدة.</p></div><span class="badge">آخر تحديث: 17 غشت 2026</span></div>
+<div class="kpis">
+<div class="kpi"><div class="label">الشكايات</div><div class="value">77.92%</div><div class="sub">4,404 منجز من أصل 5,652</div></div>
+<div class="kpi"><div class="label">المحاضر</div><div class="value">95.30%</div><div class="sub">19,265 منجز من أصل 20,215</div></div>
+<div class="kpi"><div class="label">الملفات المحالة للدراسة</div><div class="value">—</div><div class="sub">بانتظار التقرير المعتمد</div></div>
+<div class="kpi"><div class="label">المعدل المتاح حالياً</div><div class="value">86.61%</div><div class="sub">متوسط الشكايات والمحاضر فقط</div></div>
 </div>
+<div class="two" style="margin-top:14px">
+<div class="panel">
+<div class="section-head" style="margin:0 0 10px"><div><h2>تفصيل مؤشرات الإنجاز</h2><p>الأرقام مأخوذة من تقارير النجاعة المرفوعة.</p></div></div>
+<div class="eff"><div class="name">إنجاز الشكايات</div><div class="num">77.92%</div><div class="ringbar"><i style="width:77.92%"></i></div><div class="row"><span>الإجمالي</span><b>5,652</b></div><div class="row"><span>المنجز</span><b>4,404</b></div><div class="row"><span>غير المنجز</span><b>1,248</b></div></div>
+<div class="eff" style="margin-top:12px"><div class="name">إنجاز المحاضر</div><div class="num">95.30%</div><div class="ringbar"><i style="width:95.3%"></i></div><div class="row"><span>الإجمالي</span><b>20,215</b></div><div class="row"><span>المنجز</span><b>19,265</b></div><div class="row"><span>غير المنجز</span><b>950</b></div></div>
+</div>
+<div class="panel">
+<div class="section-head" style="margin:0 0 10px"><div><h2>مصادر البيانات</h2><p>توثيق مصدر كل مؤشر قبل اعتماده.</p></div></div>
+<div class="row"><span>تقرير نسبة الشكايات</span><span class="badge">17 غشت 2026</span></div>
+<div class="row"><span>تقرير نسبة المحاضر</span><span class="badge">17 غشت 2026</span></div>
+<div class="row"><span>تقرير الملفات المحالة للدراسة</span><span class="badge pending">لم يرد بعد</span></div>
+<div class="alert ok" style="margin-top:14px">المؤشرات الحالية للعرض فقط، وسيتم ربط الاستيراد الآلي بالـPDF عند اعتماد آلية القراءة النهائية للتقرير الثالث.</div>
+<div class="actions" style="margin-top:14px"><button class="btn btn-light" onclick="window.print()">طباعة / حفظ PDF</button></div>
+</div></div>
 </section>
 
-<section id="sections" class="view">
-<div class="toolbar"><input id="newSection" placeholder="اسم الشعبة الجديدة"><button class="primary" onclick="addSection()">إضافة شعبة</button></div>
-<div id="sectionList" class="grid"></div>
+<section id="analysis" class="view">
+<div class="section-head"><div><h2>التقييم والتحليل</h2><p>قراءة آلية استرشادية لنتائج المراقبات اعتماداً على المعطيات المسجلة.</p></div><div class="actions"><span class="badge">تحليل محلي</span><button class="btn btn-light" onclick="printAnalysis()">طباعة / PDF</button></div></div>
+<div class="kpis"><div class="kpi"><div class="label">المراقبات المحللة</div><div class="value" id="anTotal">0</div><div class="sub">جميع المراقبات المعتمدة</div></div><div class="kpi"><div class="label">ممتازة</div><div class="value" id="anExcellent">0</div><div class="sub">وضعية قوية</div></div><div class="kpi"><div class="label">تحتاج متابعة</div><div class="value" id="anFollow">0</div><div class="sub">مؤشرات تستدعي الانتباه</div></div><div class="kpi"><div class="label">تستوجب التدخل</div><div class="value" id="anIntervene">0</div><div class="sub">أولوية في المعالجة</div></div></div>
+<div class="panel" style="margin-top:14px"><div class="section-head" style="margin:0 0 10px"><div><h2>النتائج التفصيلية</h2><p>التقييم استرشادي ولا يستبدل قرار المراقب.</p></div></div><div class="toolbar" style="margin:12px 0"><input id="anSearch" placeholder="بحث بالشعبة أو الموظف..."><select id="anLevel"><option value="">كل المستويات</option><option value="ممتازة">ممتازة</option><option value="جيدة">جيدة</option><option value="تحتاج متابعة">تحتاج متابعة</option><option value="تستوجب التدخل">تستوجب التدخل</option></select><button class="btn btn-light" onclick="renderAnalysis()">تصفية</button></div><div id="analysisList"></div></div>
+<div class="panel" style="margin-top:14px"><h2 style="margin-top:0">منهجية التقييم</h2><div class="list"><div class="row"><span>نسبة المسح الضوئي ≥ 90%</span><b>ممتازة</b></div><div class="row"><span>نسبة المسح بين 75% و89%</span><b>جيدة</b></div><div class="row"><span>نسبة المسح بين 50% و74%</span><b>تحتاج متابعة</b></div><div class="row"><span>نسبة المسح أقل من 50% أو وجود عدم تطابق في الأعداد</span><b>تستوجب التدخل</b></div></div><p class="muted" style="margin-bottom:0">هذه الحدود قابلة للمراجعة لاحقاً وفق المعايير التي تعتمدها الإدارة.</p></div>
 </section>
 
-<section id="history" class="view">
-<div class="card"><h2>سجل المراقبات</h2><div id="historyList"></div></div>
+<section id="followup" class="view">
+<div class="section-head"><div><h2>متابعة التوصيات</h2><p>تتبع التوصيات الناتجة عن المراقبات إلى حين إنجازها أو إغلاقها.</p></div><span class="badge">متابعة مستمرة</span></div>
+<div class="kpis"><div class="kpi"><div class="label">إجمالي التوصيات</div><div class="value" id="fuTotal">0</div><div class="sub">مراقبات تتضمن توصيات</div></div><div class="kpi"><div class="label">قيد المتابعة</div><div class="value" id="fuOpen">0</div><div class="sub">تحتاج إلى إجراء لاحق</div></div><div class="kpi"><div class="label">منجزة</div><div class="value" id="fuDone">0</div><div class="sub">تم إغلاقها</div></div><div class="kpi"><div class="label">غير منجزة</div><div class="value" id="fuPending">0</div><div class="sub">تحتاج إلى تدخل</div></div></div>
+<div class="panel" style="margin-top:14px"><div class="toolbar" style="margin:12px 0"><input id="fuSearch" placeholder="بحث بالشعبة أو الموظف أو التوصية..."><select id="fuStatus"><option value="">كل الحالات</option><option>غير محددة</option><option>قيد المتابعة</option><option>منجزة</option><option>غير منجزة</option></select><input id="fuFrom" type="date"><input id="fuTo" type="date"><button class="btn btn-light" onclick="renderFollowup()">تصفية</button></div><div id="followupList"></div></div>
 </section>
 
-<section id="reports" class="view">
-<div class="card"><h2>التقارير</h2><div id="report"></div><button class="secondary" onclick="backup()">تصدير نسخة احتياطية</button><input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restore(this)">
-<button class="secondary" onclick="document.getElementById('restoreFile').click()">استرجاع نسخة</button></div>
+<section id="reports" class="view"><div class="section-head"><div><h2>التقارير والتحليل</h2><p>قراءة إجمالية لأداء المراقبات والشعب.</p></div><div class="actions"><button class="btn btn-gold" onclick="openExecutiveReport()">إنشاء تقرير إداري احترافي</button></div></div><div class="two"><div class="panel"><h2>الملخص الرقمي</h2><div id="reportSummary"></div></div><div class="panel"><h2>أداء الشعب</h2><div id="reportSections"></div></div></div><div class="panel" style="margin-top:14px"><h2>تفاصيل المراقبات</h2><div id="reportDetail" style="margin-top:12px"></div></div><div class="panel" style="margin-top:14px"><h2>البيانات والنسخ الاحتياطي</h2><p class="muted">احتفظ بنسخة احتياطية دورية من البيانات المحلية.</p><div class="actions"><button class="btn btn-light" onclick="backup()">تصدير نسخة احتياطية</button><button class="btn btn-light" onclick="document.getElementById('restoreFile').click()">استرجاع نسخة</button><input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restore(this)"></div></div></section>
+</div></main></div>
+<section id="workflow" class="view"><div class="section-head"><div><h2>اعتماد المراقبات وإغلاقها</h2><p>مسار مؤسسي لمراجعة المراقبة واعتمادها وإغلاقها بعد استكمال المتابعة.</p></div><div class="actions"><button class="btn btn-primary" onclick="renderWorkflow()">تحديث</button><button class="btn btn-gold" onclick="printWorkflow()">طباعة / PDF</button></div></div><div class="workflow-grid"><div class="workflow-card"><span class="muted">قيد المراجعة</span><b id="wfReview">0</b></div><div class="workflow-card"><span class="muted">معتمدة</span><b id="wfApproved">0</b></div><div class="workflow-card"><span class="muted">مغلقة</span><b id="wfClosed">0</b></div><div class="workflow-card"><span class="muted">تحتاج إجراء</span><b id="wfAction">0</b></div></div><div class="card"><div class="filters"><div class="field"><label>البحث</label><input id="wfSearch" oninput="renderWorkflow()" placeholder="الشعبة أو الموظف"></div><div class="field"><label>حالة الاعتماد</label><select id="wfState" onchange="renderWorkflow()"><option value="">الكل</option><option value="قيد المراجعة">قيد المراجعة</option><option value="معتمدة">معتمدة</option><option value="مغلقة">مغلقة</option></select></div></div><div id="workflowList"></div></div></section><section id="central" class="view"><div class="section-head"><div><h2>البحث المركزي والملف الموحد</h2><p>الوصول السريع إلى جميع المعلومات المرتبطة بالمراقبات والشعب والموظفين والتوصيات والاعتمادات.</p></div><div class="actions"><button class="btn btn-light" onclick="clearCentralSearch()">مسح البحث</button><button class="btn btn-gold" onclick="printCentralDossier()">طباعة الملف</button></div></div><div class="central-search panel"><div class="field"><label>بحث شامل</label><input id="centralQuery" oninput="renderCentralSearch()" placeholder="اكتب اسم الشعبة أو الموظف أو كلمة من الملاحظات أو التوصيات..." autocomplete="off"></div><div class="central-filters"><div class="field"><label>الشعبة</label><select id="centralSection" onchange="renderCentralSearch()"><option value="">جميع الشعب</option></select></div><div class="field"><label>حالة المراقبة</label><select id="centralStatus" onchange="renderCentralSearch()"><option value="">كل الحالات</option><option>مكتملة</option><option>تحتاج إلى متابعة</option><option>تستوجب التدخل</option></select></div><div class="field"><label>حالة الاعتماد</label><select id="centralApproval" onchange="renderCentralSearch()"><option value="">كل الحالات</option><option>قيد المراجعة</option><option>معتمدة</option><option>مغلقة</option></select></div><div class="field"><label>من تاريخ</label><input id="centralFrom" type="date" onchange="renderCentralSearch()"></div><div class="field"><label>إلى تاريخ</label><input id="centralTo" type="date" onchange="renderCentralSearch()"></div></div></div><div class="central-kpis"><div class="kpi"><span>النتائج</span><b id="centralCount" class="value">0</b></div><div class="kpi"><span>متوسط المسح</span><b id="centralAvgScan" class="value">—</b></div><div class="kpi"><span>تحتاج تدخلاً</span><b id="centralIntervene" class="value">0</b></div><div class="kpi"><span>توصيات مفتوحة</span><b id="centralOpenRec" class="value">0</b></div></div><div id="centralResults" class="central-results"></div><div id="centralDossier" class="panel central-dossier" style="display:none"></div></section><section id="auditcenter" class="view"><div class="section-head"><div><h2>الفحص المؤسسي والمرشح للإصدار المستقر</h2><p>مراجعة شاملة لوظائف البرنامج وسلامة البيانات قبل اعتماد أي نسخة مستقرة.</p></div><div class="actions"><button class="btn btn-gold" onclick="runReleaseAudit()">تشغيل الفحص الشامل</button><button class="btn btn-light" onclick="printReleaseAudit()">طباعة التقرير</button></div></div><div class="v20-grid"><div class="v20-card"><div class="muted">درجة الجاهزية</div><div class="v20-score" id="v20Score">—</div><div class="v20-progress"><span id="v20Bar" style="width:0%"></span></div></div><div class="v20-card"><div class="muted">اختبارات ناجحة</div><div class="v20-score" id="v20Pass">0</div></div><div class="v20-card"><div class="muted">تحذيرات</div><div class="v20-score" id="v20Warn">0</div></div><div class="v20-card"><div class="muted">أخطاء حرجة</div><div class="v20-score" id="v20Fail">0</div></div></div><div class="panel" style="margin-top:14px"><div class="v20-meta"><span class="v20-chip">فحص الواجهة</span><span class="v20-chip">فحص قاعدة البيانات</span><span class="v20-chip">فحص الصلاحيات</span><span class="v20-chip">فحص الحفظ والاسترجاع</span><span class="v20-chip">فحص الاتساق</span></div></div><div class="panel" style="margin-top:14px"><h2>نتائج الفحص</h2><div id="v20Tests" class="v20-tests" style="margin-top:12px"></div></div><div class="panel" style="margin-top:14px"><h2>ملخص الاعتماد</h2><div id="v20Summary" class="v20-note">لم يتم تشغيل الفحص بعد.</div></div></section><section id="security" class="view"><div class="section-head"><div><h2>الإدارة والأمن</h2><p>إدارة وضع التشغيل والصلاحيات والقفل المحلي للبرنامج.</p></div><span class="badge">حوكمة النظام</span></div>
+<div class="security-grid"><div class="security-card"><h3>وضع التشغيل الحالي</h3><p>الدور النشط يحدد الوظائف المتاحة في هذه الجلسة.</p><div class="security-status"><span class="badge" id="currentRoleBadge">مدير النظام</span><span class="muted" id="securitySession">جلسة محلية</span></div></div><div class="security-card"><h3>قفل البرنامج</h3><p>يمكن حماية الوصول إلى التطبيق بواسطة رمز PIN محلي.</p><div class="security-status"><label class="switch"><input id="lockEnabled" type="checkbox" onchange="toggleLockSetting(this.checked)"><span class="slider"></span></label><b id="lockLabel">غير مفعل</b></div></div><div class="security-card"><h3>تغيير رمز PIN</h3><p>تغيير الرمز يتطلب الرمز الحالي عند تفعيله.</p><div class="actions"><button class="btn btn-primary" onclick="changePin()">تغيير الرمز</button><button class="btn btn-light" onclick="switchRole()">تغيير الدور</button></div></div></div>
+<div class="two"><div class="panel"><h2>الصلاحيات</h2><div class="permission-list" id="permissionList"></div></div><div class="panel"><h2>ملاحظات أمنية</h2><div class="notice"><b>تنبيه:</b> هذا القفل محلي داخل المتصفح، وليس نظام مصادقة خادم مركزي. لا يعتبر بديلاً عن بنية أمن معلومات مؤسساتية عند ربط البرنامج بخادم أو شبكة متعددة المستخدمين.</div><div class="actions"><button class="btn btn-light" onclick="lockNow()">قفل البرنامج الآن</button></div></div></div></section>
+<div id="lockModal" class="modal lock-modal"><div class="modalbox"><div class="section-head" style="margin:0 0 14px"><div><h2 id="lockTitle">فتح البرنامج</h2><p>أدخل رمز PIN المحلي للمتابعة.</p></div></div><div class="field"><label>رمز PIN</label><input id="pinEntry" class="pin-input" inputmode="numeric" maxlength="8" type="password" autocomplete="off"></div><div id="pinError" class="alert" style="display:none">رمز PIN غير صحيح.</div><div class="actions"><button class="btn btn-primary" onclick="unlockApp()">فتح البرنامج</button></div></div></div><div id="executiveModal" class="modal"><div class="modalbox" style="max-width:1100px"><div class="section-head" style="margin:0 0 14px"><div><h2>إعداد التقرير الإداري</h2><p>تخصيص تقرير رسمي قبل الطباعة أو الحفظ بصيغة PDF.</p></div><button class="btn btn-light" onclick="closeExecutiveReport()">إغلاق</button></div><div class="info-grid"><div class="field"><label>الشعبة</label><select id="exSection"><option value="">جميع الشعب</option></select></div><div class="field"><label>حالة المراقبة</label><select id="exStatus"><option value="">جميع الحالات</option><option>مكتملة</option><option>تحتاج إلى متابعة</option><option>تستوجب التدخل</option></select></div><div class="field"><label>من تاريخ</label><input id="exFrom" type="date"></div><div class="field"><label>إلى تاريخ</label><input id="exTo" type="date"></div></div><div class="actions"><button class="btn btn-primary" onclick="generateExecutiveReport()">معاينة التقرير</button><button class="btn btn-light" onclick="printExecutiveReport()">طباعة / حفظ PDF</button></div><div id="executivePreview" style="margin-top:18px"></div></div></div><div id="reviewModal" class="modal"><div class="modalbox"><div class="section-head" style="margin:0 0 14px"><div><h2>مراجعة المراقبة قبل الاعتماد</h2><p>تحقق من المعطيات قبل تسجيلها نهائياً.</p></div><button class="btn btn-light" onclick="closeReview()">إغلاق</button></div><div id="reviewContent"></div><div class="actions"><button class="btn btn-primary" onclick="confirmSave()">حفظ واعتماد المراقبة</button><button class="btn btn-light" onclick="closeReview()">العودة للتعديل</button></div></div></div><section id="command" class="view">
+<div class="section-head"><div><h2>مركز القيادة المتقدم</h2><p>رؤية تنفيذية موحدة لمؤشرات الأداء، المخاطر، التوصيات واتجاهات المراقبة.</p></div><div class="actions"><button class="btn btn-primary" onclick="refreshCommandCenter()">تحديث المؤشرات</button><button class="btn btn-gold" onclick="printCommandCenter()">طباعة / PDF</button></div></div>
+<div class="kpis command-kpis"><div class="kpi"><div class="label">المراقبات المسجلة</div><div class="value" id="ccInspections">0</div><div class="sub">إجمالي السجل الحالي</div></div><div class="kpi"><div class="label">متوسط نسبة المسح</div><div class="value" id="ccScan">—</div><div class="sub">استناداً إلى المراقبات ذات البيانات</div></div><div class="kpi"><div class="label">تستوجب التدخل</div><div class="value" id="ccIntervene">0</div><div class="sub">أولوية عالية</div></div><div class="kpi"><div class="label">توصيات مفتوحة</div><div class="value" id="ccOpen">0</div><div class="sub">تحتاج متابعة أو إنجاز</div></div></div>
+<div class="two" style="margin-top:14px"><div class="panel"><h2>توزيع مستويات التقييم</h2><div id="ccLevels" class="bar-chart"></div></div><div class="panel"><h2>أعلى الشعب أولوية</h2><div id="ccSections"></div></div></div>
+<div class="panel" style="margin-top:14px"><div class="section-head" style="margin:0"><div><h2>قراءة تنفيذية</h2><p>ملاحظات مختصرة يولدها النظام من البيانات المسجلة.</p></div></div><div id="ccNarrative" class="narrative"></div></div>
+<div class="panel" style="margin-top:14px"><h2>آخر المراقبات</h2><div id="ccRecent" style="margin-top:10px"></div></div>
 </section>
-</main>
+<section id="priority" class="view">
+<div class="section-head"><div><h2>التنبيهات والأولويات</h2><p>ترتيب آلي للمراقبات التي تستوجب المتابعة أو التدخل، اعتماداً على البيانات المسجلة.</p></div><div class="actions"><span class="badge">تحليل استرشادي</span><button class="btn btn-light" onclick="printPriority()">طباعة / PDF</button></div></div>
+<div class="priority-grid">
+<div class="priority-card"><span class="muted">إجمالي المراقبات</span><div class="num" id="prTotal">0</div><small class="muted">المسجلة في النظام</small></div>
+<div class="priority-card"><span class="muted">أولوية عاجلة</span><div class="num" id="prHigh">0</div><small class="muted">تستوجب التدخل</small></div>
+<div class="priority-card"><span class="muted">أولوية متوسطة</span><div class="num" id="prMed">0</div><small class="muted">تحتاج متابعة</small></div>
+<div class="priority-card"><span class="muted">توصيات مفتوحة</span><div class="num" id="prOpen">0</div><small class="muted">قيد المتابعة أو غير منجزة</small></div>
+</div>
+<div class="panel" style="margin-top:14px"><div class="section-head" style="margin:0 0 10px"><div><h2>قائمة الأولويات</h2><p>يتم ترتيب المراقبات حسب درجة الأولوية الآلية، من الأعلى إلى الأدنى.</p></div></div><div class="toolbar" style="margin:12px 0"><input id="prSearch" placeholder="بحث بالشعبة أو الموظف..."><select id="prLevel"><option value="">كل الأولويات</option><option value="عاجلة">عاجلة</option><option value="متوسطة">متوسطة</option><option value="عادية">عادية</option></select><button class="btn btn-light" onclick="renderPriority()">تصفية</button></div><div id="priorityList" class="priority-list"></div></div>
+<div class="notice" style="margin-top:14px"><b>ملاحظة منهجية:</b> درجة الأولوية مؤشر آلي استرشادي، ولا تُعد قراراً إدارياً. ترتفع الدرجة عند وجود ملفات بدون إجراء، انخفاض نسبة المسح، عدم تطابق الأعداد، أو توصيات غير منجزة/قيد المتابعة.</div>
+</section>
+<section id="quality" class="view"><div class="section-head"><div><h2>تدقيق الجودة وسلامة البيانات</h2><p>مراقبة سلامة قاعدة البيانات وجودة السجلات قبل الاعتماد أو إصدار التقارير.</p></div><div class="actions"><button class="btn btn-primary" onclick="runIntegrityCheck()">فحص شامل الآن</button><button class="btn btn-light" onclick="createManualBackup()">إنشاء نسخة احتياطية الآن</button><button class="btn btn-gold" onclick="exportAuditLog()">تصدير سجل التدقيق</button></div></div><div class="integrity-grid" style="margin-top:14px"><div class="integrity-card"><div class="muted">صحة النظام</div><div id="systemHealth" class="health-ring">—</div><small id="systemHealthNote" class="muted">جاري الفحص</small></div><div class="integrity-card"><div class="muted">سلامة قاعدة البيانات</div><div id="dbHealth" class="health-ring">—</div><small id="dbHealthNote" class="muted">—</small></div><div class="integrity-card"><div class="muted">سلامة السجلات</div><div id="recordHealth" class="health-ring">—</div><small id="recordHealthNote" class="muted">—</small></div><div class="integrity-card"><div class="muted">آخر نسخة تلقائية</div><div id="lastBackupHealth" style="font-size:15px;font-weight:950;margin-top:10px">—</div><small id="lastBackupNote" class="muted">—</small></div></div><div class="panel" style="margin-top:14px"><h2 style="margin-top:0">نتيجة الفحص الشامل</h2><div id="integrityList" class="integrity-list"><div class="empty">اضغط «فحص شامل الآن» لبدء التحقق.</div></div></div><div class="two" style="margin-top:14px"><div class="panel"><h2>نتائج التدقيق</h2><div id="qaList"></div></div><div class="panel"><h2>سجل العمليات</h2><div class="toolbar"><select id="auditFilter"><option value="">كل العمليات</option><option value="إضافة مراقبة">إضافة مراقبة</option><option value="تحديث توصية">تحديث توصية</option><option value="إضافة شعبة">إضافة شعبة</option><option value="إضافة مؤشر">إضافة مؤشر</option><option value="استرجاع نسخة">استرجاع نسخة</option></select><button class="btn btn-light" onclick="renderAuditLog()">تصفية</button></div><div id="auditList" style="margin-top:10px"></div></div></div>
+<div class="notice" style="margin-top:14px"><b>تنبيه مؤسساتي:</b> التدقيق الآلي وسيلة لمراقبة جودة البيانات ولا يحل محل المراجعة البشرية. لا يتم حذف السجل التاريخي تلقائياً.</div>
+</section>
 <script>
 const KEY='niyaba_monitor_free_v1';
 const defaultQuestions=[
@@ -83,28 +155,539 @@ const defaultQuestions=[
 'عدد الملفات المحالة للدراسة','عدد الملفات في طور الإنجاز','عدد الملفات بدون إجراء',
 'عدد الملفات الممسوحة ضوئياً','عدد الملفات غير الممسوحة ضوئياً'];
 const names=['شعبة المحاضر العادية','شعبة المحاضر التلبسية','شعبة جنح السير','شعبة مخالفات السير','شعبة الشكايات','شعبة الجنحي العادي','شعبة الجنحي سير','شعبة الأبوستيل','شعبة المستأنفات العادية','شعبة المستأنفات التلبسية','شعبة الحالة المدنية','شعبة تدخل النيابة العامة في القضايا المدنية','شعبة مكتب الضبط'];
-let db=JSON.parse(localStorage.getItem(KEY)||'null')||{sections:names.map((name,i)=>({id:i+1,name,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${i+1}_${j}`,label,active:true}))})),inspections:[]};
-function persist(){localStorage.setItem(KEY,JSON.stringify(db));render()}
-function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));render()}
+function makeDefault(){return {sections:names.map((name,i)=>({id:i+1,name,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${i+1}_${j}`,label,active:true}))})),inspections:[],auditLog:[]}}
+const DB_NAME='NiyabaMonitorDB';
+const DB_VERSION=8;
+const DATA_VERSION=8;
+let db=makeDefault();
+let dbReady=false;
+let dbStatus='جارٍ تجهيز قاعدة البيانات المحلية…';
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains('app')) d.createObjectStore('app',{keyPath:'key'});
+      if(!d.objectStoreNames.contains('backups')) d.createObjectStore('backups',{keyPath:'id'});
+      const app=d.transaction.objectStore('app');
+      app.put({key:'schema',version:DATA_VERSION,updatedAt:new Date().toISOString()});
+    };
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function loadDatabase(){
+  try{
+    const idb=await openDB();
+    const tx=idb.transaction('app','readonly');
+    const req=tx.objectStore('app').get('data');
+    const record=await new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
+    if(record?.data){
+      db=record.data; if(!Array.isArray(db.auditLog)) db.auditLog=[];
+      dbStatus='قاعدة البيانات المحلية: IndexedDB — إصدار '+DATA_VERSION;
+    }else{
+      const legacy=JSON.parse(localStorage.getItem(KEY)||'null');
+      db=legacy||makeDefault(); if(!Array.isArray(db.auditLog)) db.auditLog=[];
+      await saveDatabase();
+      await createAutoBackup('قبل الانتقال من التخزين القديم');
+      dbStatus='تم ترحيل البيانات إلى قاعدة بيانات مستقلة — إصدار '+DATA_VERSION;
+    }
+    dbReady=true;
+    render();
+  }catch(e){
+    db=JSON.parse(localStorage.getItem(KEY)||'null')||makeDefault(); if(!Array.isArray(db.auditLog)) db.auditLog=[];
+    dbStatus='وضع احتياطي مؤقت — يرجى الاحتفاظ بنسخة احتياطية';
+    dbReady=true; render();
+  }
+}
+async function saveDatabase(){
+  const idb=await openDB();
+  await new Promise((resolve,reject)=>{
+    const tx=idb.transaction('app','readwrite');
+    tx.objectStore('app').put({key:'data',version:DATA_VERSION,updatedAt:new Date().toISOString(),data:db});
+    tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+  });
+  // Emergency mirror only; IndexedDB is the primary store.
+  try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){}
+}
+async function createAutoBackup(reason){
+  try{
+    const idb=await openDB();
+    await new Promise((resolve,reject)=>{
+      const tx=idb.transaction('backups','readwrite');
+      tx.objectStore('backups').put({id:'auto-'+Date.now(),version:DATA_VERSION,createdAt:new Date().toISOString(),reason,data:db});
+      tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+    });
+  }catch(e){}
+}
+function addAudit(action,details){
+  if(!Array.isArray(db.auditLog)) db.auditLog=[];
+  db.auditLog.unshift({id:uid(),at:new Date().toISOString(),action,details:String(details||'')});
+  if(db.auditLog.length>500) db.auditLog=db.auditLog.slice(0,500);
+}
+function qualityFor(i){
+ const issues=[]; let critical=0;
+ if(!i.sectionId || !i.sectionName){issues.push('بيانات الشعبة ناقصة');critical++;}
+ if(!i.inspectionDate){issues.push('تاريخ المراقبة غير محدد');critical++;}
+ if(!String(i.employee||'').trim()){issues.push('الموظف المكلف غير محدد');}
+ const t=numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه');
+ const sc=numByLabel(i,'عدد الملفات الممسوحة ضوئياً');
+ const un=numByLabel(i,'عدد الملفات غير الممسوحة ضوئياً');
+ if(t<0||sc<0||un<0){issues.push('وجود قيمة سالبة');critical++;}
+ if(t && sc+un!==t){issues.push('عدم تطابق إجمالي الملفات مع الممسوح وغير الممسوح');critical++;}
+ if(sc>t || un>t){issues.push('أحد أعداد المسح يتجاوز الإجمالي');critical++;}
+ const qids=new Set((i.questions||[]).map(q=>q.id));
+ if(!i.answers || Object.keys(i.answers).some(k=>!qids.has(k))){issues.push('تعارض بين المؤشرات المحفوظة والإجابات');}
+ return {issues,critical,level:critical?'حرجة':issues.length?'تحتاج مراجعة':'سليمة'};
+}
+function runQualityAudit(){
+ const rows=(db.inspections||[]).map(i=>({i,q:qualityFor(i)})); const total=rows.length;
+ const bad=rows.filter(x=>x.q.level==='حرجة').length, warn=rows.filter(x=>x.q.level==='تحتاج مراجعة').length, good=rows.filter(x=>x.q.level==='سليمة').length;
+ const score=total?Math.max(0,Math.round((good+warn*.5)/total*100)):100;
+ qaScore.textContent=score+'%'; qaGood.textContent=good; qaWarn.textContent=warn; qaBad.textContent=bad;
+ qaList.innerHTML=rows.length?`<div style="overflow:auto"><table><thead><tr><th>الشعبة</th><th>التاريخ</th><th>الحالة</th><th>الملاحظات</th><th>الإجراء</th></tr></thead><tbody>${rows.map(x=>`<tr><td><b>${esc(x.i.sectionName)}</b></td><td>${esc(fmtDate(x.i.inspectionDate||x.i.date))}</td><td><span class="badge">${x.q.level}</span></td><td>${x.q.issues.length?x.q.issues.map(z=>`<div class="alert" style="margin:3px 0">${esc(z)}</div>`).join(''):'لا توجد'}</td><td><button class="btn btn-light" onclick="viewInspection('${x.i.id}')">عرض</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">لا توجد مراقبات لتدقيقها.</div>';
+ renderAuditLog();
+}
+function renderAuditLog(){
+ const f=document.getElementById('auditFilter')?.value||''; const rows=(db.auditLog||[]).filter(x=>!f||x.action===f).slice(0,100);
+ auditList.innerHTML=rows.length?`<div style="overflow:auto"><table><thead><tr><th>التاريخ والوقت</th><th>العملية</th><th>التفاصيل</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(fmtDateTime(x.at))}</td><td><span class="badge">${esc(x.action)}</span></td><td>${esc(x.details)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">لا توجد عمليات مسجلة.</div>';
+}
+function printQuality(){runQualityAudit();const old=document.title;document.title='تقرير تدقيق الجودة — مراقبة كتابة النيابة العامة';setTimeout(()=>{window.print();setTimeout(()=>document.title=old,800)},100)}
+async function persist(){
+  try{await saveDatabase();dbStatus='قاعدة البيانات محفوظة — إصدار '+DATA_VERSION;render();return true}
+  catch(e){dbStatus='تعذر الحفظ الرئيسي — النسخة الاحتياطية المحلية مفعلة';render();return false}
+}
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.mv===id));render();if(id==='auditcenter') runReleaseAudit();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function today(){return new Date().toISOString().slice(0,10)}
+function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random())}
+function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function fmtDate(x){try{return new Date(x).toLocaleDateString('ar-MA',{year:'numeric',month:'long',day:'numeric'})}catch{return x}}
+function fmtDateTime(x){try{return new Date(x).toLocaleString('ar-MA')}catch{return x}}
+function getAnswers(){let a={};document.querySelectorAll('[data-q]').forEach(i=>a[i.dataset.q]=Math.max(0,Number(i.value)||0));return a}
+
+let v20AuditResult=null;
+function v20Check(name, condition, detail, severity='bad'){return {name,ok:!!condition,detail, severity:condition?'ok':severity}}
+async function runReleaseAudit(){
+  const checks=[];
+  checks.push(v20Check('وجود الشعب الأساسية',Array.isArray(db.sections)&&db.sections.length>=13,`الموجود حالياً: ${Array.isArray(db.sections)?db.sections.length:0}`,'bad'));
+  checks.push(v20Check('وجود المراقبات',Array.isArray(db.inspections),`السجلات: ${Array.isArray(db.inspections)?db.inspections.length:0}`,'bad'));
+  checks.push(v20Check('قاعدة البيانات المحلية',typeof indexedDB!=='undefined' && typeof saveDatabase==='function', 'IndexedDB وآلية الحفظ متاحة','bad'));
+  checks.push(v20Check('المراقب ثابت',Array.isArray(db.inspections)&&db.inspections.every(x=>!x.inspector || x.inspector==='رئيس كتابة النيابة العامة'), 'التحقق من قيمة المراقب في السجلات','bad'));
+  checks.push(v20Check('سلامة التواريخ',Array.isArray(db.inspections)&&db.inspections.every(x=>!x.inspectionDate || !isNaN(new Date(x.inspectionDate).getTime())), 'لا توجد تواريخ غير صالحة','bad'));
+  checks.push(v20Check('سلامة الأعداد',Array.isArray(db.inspections)&&db.inspections.every(x=>Object.values(x.answers||{}).every(v=>Number(v)>=0)), 'لا توجد قيم سالبة في الإجابات','bad'));
+  checks.push(v20Check('وجود التدقيق والجودة',typeof runQualityAudit==='function'&&typeof qualityFor==='function','وظائف تدقيق الجودة متاحة','bad'));
+  checks.push(v20Check('وجود الاعتماد',typeof approveInspection==='function'&&typeof closeInspection==='function','مسار الاعتماد والإغلاق متاح','bad'));
+  checks.push(v20Check('وجود البحث المركزي',typeof renderCentralSearch==='function'&&typeof openCentralDossier==='function','البحث والملف الموحد متاحان','bad'));
+  checks.push(v20Check('وجود مركز القيادة',typeof refreshCommandCenter==='function','مركز القيادة متاح','bad'));
+  checks.push(v20Check('وجود التوصيات',typeof renderFollowup==='function'&&typeof updateRecommendation==='function','متابعة التوصيات متاحة','bad'));
+  checks.push(v20Check('وجود النسخ الاحتياطي',typeof backup==='function'&&typeof restore==='function','التصدير والاسترجاع متاحان','bad'));
+  checks.push(v20Check('وجود سجل التدقيق',Array.isArray(db.auditLog),`عمليات مسجلة: ${Array.isArray(db.auditLog)?db.auditLog.length:0}`,'warn'));
+  checks.push(v20Check('وجود نسخة احتياطية',!!(await getBackupHealth()),'توجد نسخة احتياطية محفوظة في مخزن النسخ المحلي.','warn'));
+  const pass=checks.filter(x=>x.ok).length,warn=checks.filter(x=>!x.ok&&x.severity==='warn').length,fail=checks.filter(x=>!x.ok&&x.severity==='bad').length,total=checks.length;
+  const score=Math.max(0,Math.round((pass/total)*100 - fail*3));
+  v20AuditResult={checks,pass,warn,fail,score,at:new Date().toISOString()};
+  document.getElementById('v20Score').textContent=score+'%';document.getElementById('v20Bar').style.width=score+'%';
+  document.getElementById('v20Pass').textContent=pass;document.getElementById('v20Warn').textContent=warn;document.getElementById('v20Fail').textContent=fail;
+  document.getElementById('v20Tests').innerHTML=checks.map(c=>`<div class="v20-test"><div><b>${esc(c.name)}</b><div class="muted">${esc(c.detail)}</div></div><span class="${c.ok?'ok':c.severity==='warn'?'warn':'bad'}">${c.ok?'✓ سليم':c.severity==='warn'?'⚠ تحذير':'✕ يحتاج معالجة'}</span></div>`).join('');
+  document.getElementById('v20Summary').textContent=fail===0?(warn===0?'البرنامج اجتاز الفحص المؤسسي دون أخطاء أو تحذيرات. وهو في وضع مناسب للانتقال إلى اختبار الاعتماد النهائي.':'لا توجد أخطاء حرجة، لكن توجد تحذيرات ينبغي معالجتها أو توثيقها قبل إصدار Stable.'):'تم العثور على نقاط حرجة. لا يُنصح باعتماد النسخة قبل معالجة الأخطاء المبينة أعلاه.';
+  toast(fail?'الفحص اكتمل: توجد نقاط تحتاج معالجة':'اكتمل الفحص المؤسسي بنجاح');
+}
+function printReleaseAudit(){if(!v20AuditResult) runReleaseAudit(); const old=document.title;document.title='تقرير الفحص المؤسسي — مراقبة كتابة النيابة العامة';setTimeout(()=>{window.print();setTimeout(()=>document.title=old,800)},100)}
+
 function render(){
-sSections.textContent=db.sections.filter(s=>s.active).length;sInspections.textContent=db.inspections.length;
-sLatest.textContent=db.inspections[0]?`${db.inspections[0].sectionName} — ${new Date(db.inspections[0].date).toLocaleString('ar-MA')}`:'لا توجد بعد';
-sectionSelect.innerHTML=db.sections.filter(s=>s.active).map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
-renderQuestions();renderSections();renderHistory();renderReport();
+if(typeof dbStatusText!=='undefined') dbStatusText.textContent=dbStatus;
+const active=db.sections.filter(s=>s.active);
+sSections.textContent=active.length;sInspections.textContent=db.inspections.length;
+const last=db.inspections[0];sLatest.textContent=last?`${last.sectionName} — ${fmtDate(last.inspectionDate||last.date)}`:'لا توجد بعد';
+const total=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه'),0);
+const scanned=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات الممسوحة ضوئياً'),0);
+sScan.textContent=total?Math.round(scanned/total*100)+'%':'—';
+sectionSelect.innerHTML=active.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+renderQuestions();renderSections();renderHistory();renderReports();renderRecent();renderFollowup();renderAnalysis();renderWorkflow();renderPriority();renderCommandCenter();renderCentralSearch();renderEfficiency();updateSystemStatus()
+}
+function renderQuestions(){
+let s=db.sections.find(x=>x.id==sectionSelect.value)||db.sections.find(x=>x.active);if(!s)return;
+indicatorCount.textContent=s.questions.filter(q=>q.active).length+' مؤشرات';
+questions.innerHTML=s.questions.filter(q=>q.active).map(q=>`<div class="q"><div class="qrow"><div class="qname">${esc(q.label)}</div><input class="qinput" type="number" min="0" step="1" inputmode="numeric" data-q="${q.id}" value="0"></div></div>`).join('');
+document.querySelectorAll('[data-q]').forEach(i=>i.oninput=updateLive);updateLive()
 }
 sectionSelect.onchange=renderQuestions;
-function renderQuestions(){let s=db.sections.find(x=>x.id==sectionSelect.value)||db.sections.find(x=>x.active);if(!s)return;questions.innerHTML=s.questions.filter(q=>q.active).map(q=>`<div class="q"><div class="qrow"><div>${esc(q.label)}</div><input type="number" min="0" inputmode="numeric" data-q="${q.id}" value="0"></div></div>`).join('')}
-function saveInspection(){let s=db.sections.find(x=>x.id==sectionSelect.value);if(!s)return;let answers={};document.querySelectorAll('[data-q]').forEach(i=>answers[i.dataset.q]=Number(i.value)||0);db.inspections.unshift({id:crypto.randomUUID(),sectionId:s.id,sectionName:s.name,date:new Date().toISOString(),employee:employee.value.trim(),answers,questions:s.questions.map(q=>({...q})),notes:notes.value.trim()});employee.value='';notes.value='';persist();alert('تم حفظ المراقبة بنجاح');show('history')}
-function addSection(){let n=newSection.value.trim();if(!n)return;let id=Date.now();db.sections.push({id,name:n,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${id}_${j}`,label,active:true}))});newSection.value='';persist()}
-function renderSections(){sectionList.innerHTML=db.sections.filter(s=>s.active).map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p class="muted">${s.questions.filter(q=>q.active).length} مؤشرات</p><button class="secondary" onclick="addQuestion(${s.id})">إضافة مؤشر</button></div>`).join('')}
-function addQuestion(id){let label=prompt('اكتب اسم المؤشر الجديد');if(!label||!label.trim())return;let s=db.sections.find(x=>x.id==id);s.questions.push({id:crypto.randomUUID(),label:label.trim(),active:true});persist()}
-function renderHistory(){historyList.innerHTML=db.inspections.length?`<table><thead><tr><th>الشعبة</th><th>التاريخ</th><th>الموظف</th></tr></thead><tbody>${db.inspections.map(i=>`<tr><td>${esc(i.sectionName)}</td><td>${new Date(i.date).toLocaleString('ar-MA')}</td><td>${esc(i.employee||'—')}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">لا توجد مراقبات مسجلة.</div>'}
-function renderReport(){report.innerHTML=db.sections.map(s=>{let n=db.inspections.filter(i=>i.sectionId==s.id).length;return `<p><b>${esc(s.name)}</b> : ${n} مراقبة</p>`}).join('')||'<div class="empty">لا توجد بيانات.</div>'}
-function backup(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='NiyabaMonitor_Backup.json';a.click()}
-function restore(el){let f=el.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);persist();alert('تم استرجاع النسخة')}catch(e){alert('النسخة غير صالحة')}};r.readAsText(f)}
-function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function numByLabel(ins,label){const q=(ins.questions||[]).find(q=>q.label===label);return q?Number(ins.answers?.[q.id]||0):0}
+function updateLive(){
+const s=db.sections.find(x=>x.id==sectionSelect.value);if(!s)return;
+const a=getAnswers();let total=0,sc=0,un=0;
+s.questions.forEach(q=>{if(q.label==='عدد الملفات المسجلة إلى حدود تاريخ يومه')total=a[q.id]||0;if(q.label==='عدد الملفات الممسوحة ضوئياً')sc=a[q.id]||0;if(q.label==='عدد الملفات غير الممسوحة ضوئياً')un=a[q.id]||0});
+liveTotal.textContent=total;
+const pct=total?Math.min(100,Math.round(sc/total*100)):0;liveScan.textContent=total?pct+'%':'—';liveBar.style.width=pct+'%';
+let alerts=[];
+if(total && sc+un!==total)alerts.push(`تنبيه: الممسوح (${sc}) + غير الممسوح (${un}) لا يساوي إجمالي الملفات (${total}).`);
+if(sc>total)alerts.push('تنبيه: عدد الملفات الممسوحة ضوئياً أكبر من إجمالي الملفات.');
+if(un>total)alerts.push('تنبيه: عدد الملفات غير الممسوحة ضوئياً أكبر من إجمالي الملفات.');
+liveAlerts.innerHTML=alerts.map(x=>`<div class="alert">${esc(x)}</div>`).join('')
+}
+function collectDraft(){
+const s=db.sections.find(x=>x.id==sectionSelect.value);
+return {section:s,date:inspectionDate.value||today(),employee:employee.value.trim(),inspector:'رئيس كتابة النيابة العامة',status:status.value,recommendationStatus:recommendationStatus.value,followUpDate:followUpDate.value,followUpNote:followUpNote.value.trim(),answers:getAnswers(),notes:notes.value.trim(),recommendations:recommendations.value.trim()}
+}
+function openReview(){
+const d=collectDraft();if(!d.section)return;
+const vals=d.section.questions.filter(q=>q.active).map(q=>({label:q.label,value:d.answers[q.id]||0}));
+reviewContent.innerHTML=`<div class="review-grid">
+<div class="review-item"><b>الشعبة</b>${esc(d.section.name)}</div>
+<div class="review-item"><b>التاريخ</b>${esc(fmtDate(d.date))}</div>
+<div class="review-item"><b>الموظف المكلف</b>${esc(d.employee||'—')}</div>
+<div class="review-item"><b>المراقب</b>${esc(d.inspector||'—')}</div>
+<div class="review-item"><b>عدد المؤشرات</b>${vals.length}</div>
+<div class="review-item"><b>نسبة المسح</b>${liveScan.textContent}</div>
+</div>
+<div class="card" style="margin-top:14px"><h3>المؤشرات</h3><table><tbody>${vals.map(v=>`<tr><td>${esc(v.label)}</td><td><b>${v.value}</b></td></tr>`).join('')}</tbody></table></div>
+<div class="card" style="margin-top:14px"><h3>بيانات المتابعة</h3><p>حالة التوصيات: <b>${esc(d.recommendationStatus||"غير محددة")}</b> — تاريخ المتابعة: <b>${esc(d.followUpDate||"—")}</b></p><h3>الملاحظات</h3><p>${esc(d.notes||'لا توجد')}</p><h3>الإجراءات والتوصيات</h3><p>${esc(d.recommendations||'لا توجد')}</p></div>`;
+reviewModal.classList.add('show')
+}
+function closeReview(){reviewModal.classList.remove('show')}
+async function confirmSave(){
+const d=collectDraft();const now=new Date().toISOString();
+const inspection={id:uid(),sectionId:d.section.id,sectionName:d.section.name,date:now,inspectionDate:d.date,employee:d.employee,inspector:'رئيس كتابة النيابة العامة',status:d.status,recommendationStatus:recommendationStatus.value||'غير محددة',followUpDate:followUpDate.value||'',followUpNote:followUpNote.value.trim(),approvalStatus:'قيد المراجعة',approvedAt:'',approvedBy:'',closedAt:'',answers:d.answers,questions:d.section.questions.map(q=>({...q})),notes:d.notes,recommendations:d.recommendations};
+db.inspections.unshift(inspection);
+addAudit('إضافة مراقبة',`${inspection.sectionName} — ${inspection.inspectionDate}`);
+const ok=await persist();
+if(!ok){db.inspections.shift();alert('تعذر حفظ المراقبة في قاعدة البيانات. لم يتم اعتمادها.');return}
+closeReview();resetForm();alert('تم حفظ المراقبة بنجاح، وهي الآن في حالة قيد المراجعة.');show('workflow')
+}
+function resetForm(){employee.value='';inspector.value='رئيس كتابة النيابة العامة';status.value='مكتملة';recommendationStatus.value='غير محددة';followUpDate.value='';followUpNote.value='';notes.value='';recommendations.value='';inspectionDate.value=today();document.querySelectorAll('[data-q]').forEach(i=>i.value=0);updateLive()}
+function renderSections(){
+sectionList.innerHTML=db.sections.filter(s=>s.active).map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p class="muted">${s.questions.filter(q=>q.active).length} مؤشرات معتمدة</p><div class="actions"><button class="secondary" onclick="addQuestion(${s.id})">إضافة مؤشر</button></div></div>`).join('')
+}
+function addSection(){const n=newSection.value.trim();if(!n)return;const id=Date.now();db.sections.push({id,name:n,active:true,questions:defaultQuestions.map((label,j)=>({id:`q${id}_${j}`,label,active:true}))});addAudit('إضافة شعبة',n);newSection.value='';persist()}
+function addQuestion(id){const label=prompt('اكتب اسم المؤشر الجديد');if(!label?.trim())return;const s=db.sections.find(x=>x.id==id);s.questions.push({id:uid(),label:label.trim(),active:true});addAudit('إضافة مؤشر',`${s.name} — ${label.trim()}`);persist()}
+function renderHistory(){
+if(!db.inspections.length){historyList.innerHTML='<div class="empty">لا توجد مراقبات مسجلة.</div>';return}
+const search=(document.getElementById('historySearch')?.value||'').trim().toLowerCase();
+const st=document.getElementById('historyStatus')?.value||'';
+const from=document.getElementById('historyFrom')?.value||'';
+const to=document.getElementById('historyTo')?.value||'';
+const rows=db.inspections.filter(i=>{
+ const hay=(i.sectionName+' '+(i.employee||'')).toLowerCase();
+ const d=i.inspectionDate||'';
+ return (!search||hay.includes(search))&&(!st||(i.status||'مكتملة')===st)&&(!from||d>=from)&&(!to||d<=to);
+});
+if(!rows.length){historyList.innerHTML='<div class="empty">لا توجد نتائج مطابقة لمعايير البحث.</div>';return}
+historyList.innerHTML=`<div style="overflow:auto"><table><thead><tr><th>تاريخ المراقبة</th><th>الشعبة</th><th>الموظف المكلف</th><th>المراقب</th><th>الملفات المسجلة</th><th>الملفات المحالة</th><th>قيد الإنجاز</th><th>بدون إجراء</th><th>الممسوحة</th><th>غير الممسوحة</th><th>نسبة المسح</th><th>الملاحظات</th><th>التوصيات</th><th>حالة المراقبة</th><th>الإجراء</th></tr></thead><tbody>${rows.map(i=>`<tr><td>${esc(fmtDate(i.inspectionDate||i.date))}</td><td><b>${esc(i.sectionName)}</b></td><td>${esc(i.employee||'—')}</td><td>${esc(i.inspector||'رئيس كتابة النيابة العامة')}</td><td>${numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه')}</td><td>${numByLabel(i,'عدد الملفات المحالة من شعبة أخرى')}</td><td>${numByLabel(i,'عدد الملفات في طور الإنجاز')}</td><td>${numByLabel(i,'عدد الملفات بدون إجراء')}</td><td>${numByLabel(i,'عدد الملفات الممسوحة ضوئياً')}</td><td>${numByLabel(i,'عدد الملفات غير الممسوحة ضوئياً')}</td><td>${scanFor(i)}%</td><td>${esc(i.notes||'—')}</td><td>${esc(i.recommendations||'—')}</td><td><span class="badge">${esc(i.status||'مكتملة')}</span></td><td><div class="actions"><button class="btn btn-light" onclick="viewInspection('${i.id}')">عرض التفاصيل</button></div></td></tr>`).join('')}</tbody></table></div>`
+}
+function scanFor(i){const t=numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه'),s=numByLabel(i,'عدد الملفات الممسوحة ضوئياً');return t?Math.min(100,Math.round(s/t*100)):0}
+function viewInspection(id){
+const i=db.inspections.find(x=>x.id===id);if(!i)return;
+const rows=(i.questions||[]).filter(q=>q.active).map(q=>`<tr><td>${esc(q.label)}</td><td><b>${Number(i.answers?.[q.id]||0)}</b></td></tr>`).join('');
+reviewContent.innerHTML=`<div class="review-grid"><div class="review-item"><b>الشعبة</b>${esc(i.sectionName)}</div><div class="review-item"><b>تاريخ المراقبة</b>${esc(fmtDate(i.inspectionDate||i.date))}</div><div class="review-item"><b>الموظف المكلف</b>${esc(i.employee||'—')}</div><div class="review-item"><b>المراقب</b>${esc(i.inspector||'—')}</div><div class="review-item"><b>نسبة المسح</b>${scanFor(i)}%</div><div class="review-item"><b>وقت التسجيل</b>${esc(fmtDateTime(i.date))}</div><div class="review-item"><b>حالة المراقبة</b>${esc(i.status||"مكتملة")}</div></div>
+<div class="card" style="margin-top:14px"><h3>المؤشرات المعتمدة وقت المراقبة</h3><table><tbody>${rows}</tbody></table></div>
+<div class="card" style="margin-top:14px"><h3>الملاحظات العامة</h3><p>${esc(i.notes||'لا توجد')}</p><h3>الإجراءات والتوصيات</h3><p>${esc(i.recommendations||'لا توجد')}</p></div>`;
+reviewModal.classList.add('show')
+}
+function renderRecent(){homeRecent.innerHTML=db.inspections.slice(0,5).map(i=>`<div class="kpi"><span>${esc(i.sectionName)}<br><small class="muted">${esc(fmtDate(i.inspectionDate||i.date))}</small></span><b>${scanFor(i)}%</b></div>`).join('')||'<div class="empty">لا توجد مراقبات بعد.</div>'}
+function updateRecommendation(id){
+ const i=db.inspections.find(x=>x.id===id); if(!i)return;
+ const st=prompt('حالة التوصية: غير محددة / قيد المتابعة / منجزة / غير منجزة',i.recommendationStatus||'قيد المتابعة');
+ if(st===null)return;
+ const allowed=['غير محددة','قيد المتابعة','منجزة','غير منجزة']; if(!allowed.includes(st.trim())){alert('الحالة غير صالحة.');return}
+ const fd=prompt('تاريخ المتابعة (YYYY-MM-DD) — اتركه فارغاً للإبقاء على التاريخ الحالي',i.followUpDate||''); if(fd===null)return;
+ if(fd && !/^\d{4}-\d{2}-\d{2}$/.test(fd)){alert('صيغة التاريخ غير صحيحة.');return}
+ const note=prompt('ملاحظة المتابعة',i.followUpNote||''); if(note===null)return;
+ i.recommendationStatus=st.trim();i.followUpDate=fd;i.followUpNote=note.trim(); addAudit('تحديث توصية',`${i.sectionName} — ${i.recommendationStatus}`);
+ persist().then(ok=>{if(ok){alert('تم تحديث متابعة التوصية بنجاح.');renderFollowup();renderHistory();}});
+}
+function renderFollowup(){
+ const list=db.inspections.filter(i=>String(i.recommendations||'').trim());
+ const total=list.length, done=list.filter(i=>i.recommendationStatus==='منجزة').length, open=list.filter(i=>i.recommendationStatus==='قيد المتابعة').length, pending=list.filter(i=>i.recommendationStatus==='غير منجزة').length;
+ fuTotal.textContent=total;fuDone.textContent=done;fuOpen.textContent=open;fuPending.textContent=pending;
+ const search=(fuSearch?.value||'').trim().toLowerCase(), st=fuStatus?.value||'', from=fuFrom?.value||'', to=fuTo?.value||'';
+ const rows=list.filter(i=>{const hay=(i.sectionName+' '+(i.employee||'')+' '+(i.recommendations||'')).toLowerCase();const d=i.followUpDate||i.inspectionDate||'';return (!search||hay.includes(search))&&(!st||(i.recommendationStatus||'غير محددة')===st)&&(!from||d>=from)&&(!to||d<=to)});
+ followupList.innerHTML=rows.length?`<div style="overflow:auto"><table><thead><tr><th>الشعبة</th><th>تاريخ المراقبة</th><th>التوصية</th><th>الحالة</th><th>تاريخ المتابعة</th><th>ملاحظة المتابعة</th><th>الإجراء</th></tr></thead><tbody>${rows.map(i=>`<tr><td><b>${esc(i.sectionName)}</b><br><small class="muted">${esc(i.employee||'—')}</small></td><td>${esc(fmtDate(i.inspectionDate||i.date))}</td><td style="min-width:260px">${esc(i.recommendations)}</td><td><span class="badge">${esc(i.recommendationStatus||'غير محددة')}</span></td><td>${esc(i.followUpDate?fmtDate(i.followUpDate):'—')}</td><td>${esc(i.followUpNote||'—')}</td><td><div class="actions"><button class="btn btn-light" onclick="viewInspection('${i.id}')">عرض</button><button class="btn btn-primary" onclick="updateRecommendation('${i.id}')">تحديث</button></div></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">لا توجد توصيات وفق معايير التصفية الحالية.</div>'
+}
+function analysisFor(i){
+ const t=numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه');
+ const sc=numByLabel(i,'عدد الملفات الممسوحة ضوئياً');
+ const un=numByLabel(i,'عدد الملفات غير الممسوحة ضوئياً');
+ const pct=t?Math.min(100,Math.round(sc/t*100)):0;
+ const mismatch=t>0 && sc+un!==t;
+ let level='تستوجب التدخل';
+ if(!mismatch && t>0){ if(pct>=90) level='ممتازة'; else if(pct>=75) level='جيدة'; else if(pct>=50) level='تحتاج متابعة'; }
+ const reasons=[];
+ if(!t) reasons.push('لا يوجد إجمالي ملفات مسجل');
+ if(mismatch) reasons.push('عدم تطابق بين الممسوح وغير الممسوح والإجمالي');
+ if(t && pct<90) reasons.push('نسبة المسح دون مستوى 90%');
+ if(numByLabel(i,'عدد الملفات بدون إجراء')>0) reasons.push('وجود ملفات بدون إجراء');
+ return {level,pct,reasons};
+}
+function printAnalysis(){ const old=document.title; document.title='تقرير التقييم والتحليل — مراقبة كتابة النيابة العامة'; window.print(); setTimeout(()=>document.title=old,1000); }
+function renderAnalysis(){
+ const totalEl=document.getElementById('anTotal'); if(!totalEl)return;
+ const analyzed=db.inspections.map(i=>({i,a:analysisFor(i)}));
+ totalEl.textContent=analyzed.length;
+ anExcellent.textContent=analyzed.filter(x=>x.a.level==='ممتازة').length;
+ anFollow.textContent=analyzed.filter(x=>x.a.level==='تحتاج متابعة'||x.a.level==='جيدة').length;
+ anIntervene.textContent=analyzed.filter(x=>x.a.level==='تستوجب التدخل').length;
+ const search=(anSearch?.value||'').trim().toLowerCase(), level=anLevel?.value||'';
+ const rows=analyzed.filter(x=>{const i=x.i;const hay=(i.sectionName+' '+(i.employee||'')).toLowerCase();return (!search||hay.includes(search))&&(!level||x.a.level===level)});
+ analysisList.innerHTML=rows.length?`<div style="overflow:auto"><table><thead><tr><th>الشعبة</th><th>التاريخ</th><th>نسبة المسح</th><th>التقييم</th><th>مؤشرات تستوجب الانتباه</th><th>الإجراء</th></tr></thead><tbody>${rows.map(x=>{const i=x.i,a=x.a;return `<tr><td><b>${esc(i.sectionName)}</b><br><small class="muted">${esc(i.employee||'—')}</small></td><td>${esc(fmtDate(i.inspectionDate||i.date))}</td><td><b>${a.pct}%</b><div class="bar"><i style="width:${a.pct}%"></i></div></td><td><span class="badge">${esc(a.level)}</span></td><td>${a.reasons.length?a.reasons.map(r=>`<div class="alert" style="margin:3px 0">${esc(r)}</div>`).join(''):'<span class="muted">لا توجد ملاحظات آلية</span>'}</td><td><button class="btn btn-light" onclick="viewInspection('${i.id}')">عرض التفاصيل</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty">لا توجد نتائج مطابقة لمعايير البحث.</div>'
+}
+function renderReports(){
+const total=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه'),0);
+const sc=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات الممسوحة ضوئياً'),0);
+const pending=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات في طور الإنجاز'),0);
+const noaction=db.inspections.reduce((n,i)=>n+numByLabel(i,'عدد الملفات بدون إجراء'),0);
+reportSummary.innerHTML=`<div class="kpi"><span>إجمالي المراقبات</span><b>${db.inspections.length}</b></div><div class="kpi"><span>إجمالي الملفات المسجلة</span><b>${total}</b></div><div class="kpi"><span>إجمالي الملفات الممسوحة</span><b>${sc}</b></div><div class="kpi"><span>في طور الإنجاز</span><b>${pending}</b></div><div class="kpi"><span>بدون إجراء</span><b>${noaction}</b></div><div class="kpi"><span>نسبة المسح الإجمالية</span><b>${total?Math.round(sc/total*100)+'%':'—'}</b></div>`;
+reportSections.innerHTML=db.sections.map(s=>{const list=db.inspections.filter(i=>i.sectionId==s.id);const t=list.reduce((n,i)=>n+numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه'),0);const scn=list.reduce((n,i)=>n+numByLabel(i,'عدد الملفات الممسوحة ضوئياً'),0);const pct=t?Math.round(scn/t*100):0;return `<div class="kpi"><span><b>${esc(s.name)}</b><br><small class="muted">${list.length} مراقبة — ${t} ملف</small><div class="bar"><i style="width:${pct}%"></i></div></span><b>${t?pct+'%':'—'}</b></div>`}).join('');
+reportDetail.innerHTML=db.inspections.length?`<div style="overflow:auto"><table><thead><tr><th>الشعبة</th><th>التاريخ</th><th>الملفات</th><th>قيد الإنجاز</th><th>بدون إجراء</th><th>المسح</th></tr></thead><tbody>${db.inspections.map(i=>`<tr><td>${esc(i.sectionName)}</td><td>${esc(fmtDate(i.inspectionDate||i.date))}</td><td>${numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه')}</td><td>${numByLabel(i,'عدد الملفات في طور الإنجاز')}</td><td>${numByLabel(i,'عدد الملفات بدون إجراء')}</td><td>${scanFor(i)}%</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">لا توجد بيانات لإعداد التقرير.</div>'
+}
+async function backup(){
+  const payload={format:'NiyabaMonitorBackup',version:DATA_VERSION,exportedAt:new Date().toISOString(),data:db};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+  a.download='NiyabaMonitor_Backup_v'+DATA_VERSION+'_'+today()+'.json';
+  a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function restore(el){
+  const f=el.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const x=JSON.parse(r.result);
+      const data=x.data||x;
+      if(!data.sections||!Array.isArray(data.inspections)) throw Error();
+      if(!confirm('سيتم إنشاء نسخة تلقائية من البيانات الحالية قبل الاسترجاع. هل تريد المتابعة؟')) return;
+      await createAutoBackup('قبل استرجاع نسخة احتياطية');
+      db=data; if(!Array.isArray(db.auditLog)) db.auditLog=[]; addAudit('استرجاع نسخة','تم استرجاع نسخة احتياطية مع إنشاء نسخة تلقائية مسبقة');
+      await saveDatabase();
+      alert('تم استرجاع النسخة بنجاح مع الحفاظ على قاعدة البيانات الحالية كنسخة احتياطية.');
+      render();
+    }catch(e){alert('النسخة غير صالحة أو لا يمكن قراءتها.')}
+  };
+  r.readAsText(f);el.value=''
+}
+inspectionDate.value=today();
 render();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-</script>
-</body></html>
+loadDatabase();
+
+function priorityFor(i){
+ const a=analysisFor(i); let score=0; const reasons=[];
+ if(a.mismatch){score+=40;reasons.push('عدم تطابق في الأعداد')}
+ if(!numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه')){score+=35;reasons.push('لا يوجد إجمالي ملفات')}
+ if(a.pct<50){score+=35;reasons.push('مسح أقل من 50%')} else if(a.pct<75){score+=20;reasons.push('مسح أقل من 75%')} else if(a.pct<90){score+=10;reasons.push('مسح أقل من 90%')}
+ const noact=numByLabel(i,'عدد الملفات بدون إجراء'); if(noact>0){score+=Math.min(30,10+Math.round(noact/10));reasons.push('وجود ملفات بدون إجراء')}
+ const rs=String(i.recommendations||'').trim(); if(rs && ['قيد المتابعة','غير منجزة'].includes(i.recommendationStatus)){score+=15;reasons.push('توصية مفتوحة')}
+ if(score>=50)return {score:Math.min(100,score),level:'عاجلة',reasons};
+ if(score>=20)return {score,level:'متوسطة',reasons};
+ return {score,level:'عادية',reasons};
+}
+function printPriority(){const old=document.title;document.title='تقرير التنبيهات والأولويات — مراقبة كتابة النيابة العامة';window.print();setTimeout(()=>document.title=old,1000)}
+function renderPriority(){
+ const list=db.inspections.map(i=>({i,p:priorityFor(i)}));
+ prTotal.textContent=list.length; prHigh.textContent=list.filter(x=>x.p.level==='عاجلة').length; prMed.textContent=list.filter(x=>x.p.level==='متوسطة').length;
+ prOpen.textContent=list.filter(x=>String(x.i.recommendations||'').trim() && ['قيد المتابعة','غير منجزة'].includes(x.i.recommendationStatus)).length;
+ const search=(prSearch?.value||'').trim().toLowerCase(), level=prLevel?.value||'';
+ const rows=list.filter(x=>{const i=x.i;const hay=(i.sectionName+' '+(i.employee||'')).toLowerCase();return(!search||hay.includes(search))&&(!level||x.p.level===level)}).sort((a,b)=>b.p.score-a.p.score);
+ priorityList.innerHTML=rows.length?rows.map(x=>{const i=x.i,p=x.p;const cls=p.level==='عاجلة'?'sev-high':p.level==='متوسطة'?'sev-med':'sev-low';return `<div class="priority-item ${cls}"><div class="priority-score">${p.score}</div><div><h3>${esc(i.sectionName)} <span class="badge">${esc(p.level)}</span></h3><p>${esc(fmtDate(i.inspectionDate||i.date))} — ${esc(i.employee||'غير محدد')}</p><div class="scorebar"><i style="width:${p.score}%"></i></div><div class="priority-reasons">${p.reasons.length?p.reasons.map(r=>`<span>${esc(r)}</span>`).join(''):'<span>لا توجد مؤشرات حرجة</span>'}</div></div><button class="btn btn-light" onclick="viewInspection('${i.id}')">عرض</button></div>`}).join(''):'<div class="empty">لا توجد مراقبات مطابقة لمعايير التصفية.</div>';
+}
+function renderEfficiency(){
+ const area=document.getElementById('efficiencyCards'); if(!area)return;
+ const metrics=[
+ {name:'نسبة إنجاز الشكايات',value:77.92,total:'5,652',done:'4,404',pending:'1,248'},
+ {name:'نسبة إنجاز المحاضر',value:95.30,total:'20,215',done:'19,265',pending:'950'},
+ {name:'الملفات المحالة للدراسة',value:null,total:'—',done:'—',pending:'بانتظار التقرير'}
+ ];
+ area.innerHTML=metrics.map(m=>m.value===null?
+ `<div class="eff"><div class="name">${m.name}</div><div class="num">—</div><span class="badge pending">${m.pending}</span><div class="muted" style="margin-top:8px;font-size:11px">سيتم اعتماد المؤشر عند تزويد التقرير</div></div>`:
+ `<div class="eff"><div class="name">${m.name}</div><div class="num">${m.value.toFixed(2)}%</div><div class="ringbar"><i style="width:${m.value}%"></i></div><div class="row"><span>الإجمالي</span><b>${m.total}</b></div><div class="row"><span>المنجز</span><b>${m.done}</b></div><div class="row"><span>غير المنجز</span><b>${m.pending}</b></div></div>`).join('');
+}
+
+function openExecutiveReport(){
+ const sel=document.getElementById('exSection');
+ sel.innerHTML='<option value="">جميع الشعب</option>'+db.sections.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
+ document.getElementById('executiveModal').classList.add('show');
+ generateExecutiveReport();
+}
+function closeExecutiveReport(){document.getElementById('executiveModal').classList.remove('show')}
+function getExecutiveRows(){
+ const sid=document.getElementById('exSection').value, st=document.getElementById('exStatus').value, from=document.getElementById('exFrom').value, to=document.getElementById('exTo').value;
+ return db.inspections.filter(i=>(!sid||String(i.sectionId)===String(sid))&&(!st||(i.status||'مكتملة')===st)&&(!from||(i.inspectionDate||i.date)>=from)&&(!to||(i.inspectionDate||i.date)<=to));
+}
+function generateExecutiveReport(){
+ const rows=getExecutiveRows(), total=rows.length;
+ const files=rows.reduce((n,i)=>n+numByLabel(i,'عدد الملفات المسجلة إلى حدود تاريخ يومه'),0);
+ const scanned=rows.reduce((n,i)=>n+numByLabel(i,'عدد الملفات الممسوحة ضوئياً'),0);
+ const noact=rows.reduce((n,i)=>n+numByLabel(i,'عدد الملفات بدون إجراء'),0);
+ const inprog=rows.reduce((n,i)=>n+numByLabel(i,'عدد الملفات في طور الإنجاز'),0);
+ const mism=rows.filter(i=>analysisFor(i).mismatch).length;
+ const urgent=rows.filter(i=>priorityFor(i).level==='عاجلة').length;
+ const openRec=rows.filter(i=>String(i.recommendations||'').trim()&&['قيد المتابعة','غير منجزة'].includes(i.recommendationStatus)).length;
+ const pct=files?Math.round(scanned/files*100):null;
+ const levels={excellent:0,good:0,follow:0,intervene:0};
+ rows.forEach(i=>{const l=analysisFor(i).level;if(l==='ممتازة')levels.excellent++;else if(l==='جيدة')levels.good++;else if(l==='تحتاج متابعة')levels.follow++;else if(l==='تستوجب التدخل')levels.intervene++;});
+ const notes=[];
+ if(noact) notes.push(`تم رصد ${noact.toLocaleString('ar-MA')} ملفاً بدون إجراء ضمن المراقبات المشمولة.`);
+ if(pct!==null) notes.push(`بلغت نسبة المسح الضوئي الإجمالية ${pct}%.`);
+ if(urgent) notes.push(`توجد ${urgent} مراقبة مصنفة ضمن الأولوية العاجلة وفق المؤشر الآلي.`);
+ if(openRec) notes.push(`توجد ${openRec} توصية مفتوحة تحتاج إلى متابعة أو إغلاق.`);
+ if(mism) notes.push(`تم رصد ${mism} حالة تستوجب التحقق من تطابق الأعداد.`);
+ const section=document.getElementById('exSection');
+ const sectionName=section?.value?section.options[section.selectedIndex].text:'جميع الشعب';
+ const from=document.getElementById('exFrom').value, to=document.getElementById('exTo').value;
+ document.getElementById('executivePreview').innerHTML=`<div class="exec-report" id="printableExecutiveReport"><div class="exec-head"><h1>تقرير إداري حول مراقبة كتابة النيابة العامة</h1><p>تقرير تركيبي لنتائج المراقبات والتقييم والتنبيهات والتوصيات</p><p>النطاق: ${esc(sectionName)} — الفترة: ${esc(from?fmtDate(from):'دون تحديد')} إلى ${esc(to?fmtDate(to):'دون تحديد')}</p></div><div class="exec-meta"><div>عدد المراقبات<b>${total}</b></div><div>إجمالي الملفات<b>${files.toLocaleString('ar-MA')}</b></div><div>نسبة المسح<b>${pct===null?'—':pct+'%'}</b></div><div>بدون إجراء<b>${noact.toLocaleString('ar-MA')}</b></div></div><div class="exec-section"><h3>أولاً: الخلاصة التنفيذية</h3><p>يعرض هذا التقرير حصيلة المراقبات المشمولة في النطاق المحدد، مع إبراز المؤشرات الكمية وحالات التقييم والأولويات والتوصيات المفتوحة. وتظل النتائج التحليلية آلية واسترشادية، ويُرجع في التقدير النهائي إلى المعاينة والقرار الإداري المختص.</p></div><div class="exec-section"><h3>ثانياً: المؤشرات الأساسية</h3><table><thead><tr><th>المؤشر</th><th>القيمة</th></tr></thead><tbody><tr><td>الملفات المسجلة</td><td>${files.toLocaleString('ar-MA')}</td></tr><tr><td>الملفات الممسوحة ضوئياً</td><td>${scanned.toLocaleString('ar-MA')}</td></tr><tr><td>الملفات في طور الإنجاز</td><td>${inprog.toLocaleString('ar-MA')}</td></tr><tr><td>الملفات بدون إجراء</td><td>${noact.toLocaleString('ar-MA')}</td></tr><tr><td>حالات عدم تطابق الأعداد</td><td>${mism}</td></tr></tbody></table></div><div class="exec-section"><h3>ثالثاً: نتائج التقييم</h3><table><thead><tr><th>ممتازة</th><th>جيدة</th><th>تحتاج متابعة</th><th>تستوجب التدخل</th></tr></thead><tbody><tr><td>${levels.excellent}</td><td>${levels.good}</td><td>${levels.follow}</td><td>${levels.intervene}</td></tr></tbody></table></div><div class="exec-section"><h3>رابعاً: أبرز الملاحظات والتنبيهات</h3><ul class="exec-bullets">${(notes.length?notes:['لا توجد ملاحظات آلية بارزة ضمن المعطيات المحددة.']).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="exec-section"><h3>خامساً: التوصيات الإدارية المقترحة</h3><ul class="exec-bullets"><li>إعطاء الأولوية للحالات المصنفة عاجلة والتحقق من أسبابها ميدانياً.</li><li>تتبع التوصيات المفتوحة إلى حين إنجازها وتوثيق نتيجة المتابعة.</li><li>التحقق من حالات عدم تطابق الأعداد قبل اعتماد المؤشرات النهائية.</li><li>اعتماد المقارنة الزمنية لرصد اتجاه الأداء وتحسن النتائج أو تراجعها.</li></ul></div><div class="exec-sign"><div>إعداد التقرير<br><b>نظام مراقبة كتابة النيابة العامة</b></div><div>المراقب<br><b>رئيس كتابة النيابة العامة</b></div></div><p class="report-filter-note">تاريخ إعداد التقرير: ${esc(fmtDate(today()))} — هذا التقرير مبني على البيانات المسجلة في النظام ضمن النطاق المحدد.</p></div>`;
+}
+function printExecutiveReport(){
+ generateExecutiveReport();
+ const old=document.title;document.title='التقرير الإداري — مراقبة كتابة النيابة العامة';
+ const modal=document.getElementById('executiveModal'); modal.classList.add('show');
+ setTimeout(()=>{window.print();setTimeout(()=>document.title=old,800)},100);
+}
+const _render=render; render=function(){_render();renderEfficiency();renderPriority();if(document.getElementById('quality')?.classList.contains('active')){runQualityAudit();runIntegrityCheck();}};
+const _show=show; show=function(id){_show(id);const n={home:'الرئيسية',inspect:'مراقبة جديدة',sections:'الشعب والمؤشرات',history:'سجل المراقبات',reports:'التقارير',efficiency:'نجاعة الإنجاز',followup:'متابعة التوصيات',analysis:'التقييم والتحليل',priority:'التنبيهات والأولويات',command:'مركز القيادة',quality:'تدقيق الجودة',security:'الإدارة والأمن',workflow:'اعتماد المراقبات',central:'البحث المركزي'};document.getElementById('crumbName').textContent=n[id]||'الرئيسية'};
+inspectionDate.value=today();render();if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+loadDatabase();
+function commandRows(){ return (db.inspections||[]).map(i=>({i,a:analysisFor(i),p:priorityFor(i),scan:scanFor(i)})); }
+function refreshCommandCenter(){
+ const rows=commandRows(); const total=rows.length;
+ const scans=rows.map(x=>parseFloat(x.scan)).filter(Number.isFinite);
+ const avg=scans.length?Math.round(scans.reduce((a,b)=>a+b,0)/scans.length*100)/100:null;
+ document.getElementById('ccInspections').textContent=total; document.getElementById('ccScan').textContent=avg===null?'—':avg+'%';
+ document.getElementById('ccIntervene').textContent=rows.filter(x=>x.a.level==='تستوجب التدخل').length;
+ document.getElementById('ccOpen').textContent=rows.filter(x=>['قيد المتابعة','غير منجزة'].includes(x.i.recommendationStatus)).length;
+ const levels=[['ممتازة','excellent'],['جيدة','good'],['تحتاج متابعة','follow'],['تستوجب التدخل','intervene']];
+ const counts=levels.map(([n,k])=>[n,rows.filter(x=>x.a.level===n).length]); const max=Math.max(1,...counts.map(x=>x[1]));
+ document.getElementById('ccLevels').innerHTML=counts.map(([n,c])=>`<div class="bar-row"><b>${esc(n)}</b><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c/max*100)}%"></div></div><span>${c}</span></div>`).join('');
+ const by={}; rows.forEach(x=>{by[x.i.sectionName]=(by[x.i.sectionName]||0)+x.p.score}); const ranked=Object.entries(by).map(([name,score])=>({name,score})).sort((a,b)=>b.score-a.score).slice(0,5);
+ document.getElementById('ccSections').innerHTML=ranked.length?ranked.map((r,n)=>`<div class="rank"><span><b>${n+1}.</b> ${esc(r.name)}</span><span class="rank-score">${r.score}</span></div>`).join(''):'<div class="empty">لا توجد بيانات كافية.</div>';
+ const insights=[]; if(total===0) insights.push(['حالة السجل','لا توجد مراقبات مسجلة حالياً.']); else { if(avg!==null) insights.push(['نجاعة المسح','متوسط نسبة المسح في المراقبات المسجلة هو '+avg+'%.']); const urgent=rows.filter(x=>x.a.level==='تستوجب التدخل').length; if(urgent) insights.push(['أولوية التدخل','توجد '+urgent+' مراقبة مصنفة آلياً ضمن الحالات التي تستوجب التدخل.']); const noact=rows.reduce((s,x)=>s+numByLabel(x.i,'عدد الملفات بدون إجراء'),0); if(noact) insights.push(['ملفات بدون إجراء','إجمالي الملفات بدون إجراء ضمن المراقبات المسجلة: '+noact.toLocaleString('ar-MA')+'.']); const open=rows.filter(x=>['قيد المتابعة','غير منجزة'].includes(x.i.recommendationStatus)).length; if(open) insights.push(['التوصيات','هناك '+open+' توصية/مراقبة ذات متابعة مفتوحة.']); if(!insights.length) insights.push(['الوضعية العامة','لا تظهر مؤشرات آلية بارزة تستدعي تنبيهاً إضافياً ضمن البيانات الحالية.']); }
+ document.getElementById('ccNarrative').innerHTML=insights.map(x=>`<div class="insight"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
+ const recent=[...rows].sort((a,b)=>String(b.i.inspectionDate||b.i.date).localeCompare(String(a.i.inspectionDate||a.i.date))).slice(0,8);
+ document.getElementById('ccRecent').innerHTML=recent.length?`<div style="overflow:auto"><table><thead><tr><th>التاريخ</th><th>الشعبة</th><th>التقييم</th><th>الأولوية</th><th>نسبة المسح</th></tr></thead><tbody>${recent.map(x=>`<tr><td>${esc(fmtDate(x.i.inspectionDate||x.i.date))}</td><td><b>${esc(x.i.sectionName)}</b></td><td>${esc(x.a.level)}</td><td>${esc(x.p.level)} (${x.p.score})</td><td>${x.scan}%</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">لا توجد مراقبات مسجلة.</div>';
+}
+function printCommandCenter(){ refreshCommandCenter(); const old=document.title; document.title='مركز القيادة المتقدم — مراقبة كتابة النيابة العامة'; const area=document.getElementById('command'); area.classList.add('cc-print-only'); window.print(); setTimeout(()=>{area.classList.remove('cc-print-only');document.title=old},800); }
+const _show2=show; show=function(id){ _show2(id); const n={home:'الرئيسية',inspect:'مراقبة جديدة',sections:'الشعب والمؤشرات',history:'سجل المراقبات',reports:'التقارير',efficiency:'نجاعة الإنجاز',followup:'متابعة التوصيات',analysis:'التقييم والتحليل',priority:'التنبيهات والأولويات',command:'مركز القيادة',security:'الإدارة والأمن',workflow:'اعتماد المراقبات',central:'البحث المركزي'}; document.getElementById('crumbName').textContent=n[id]||'الرئيسية'; if(id==='command') setTimeout(refreshCommandCenter,0); if(id==='workflow') setTimeout(renderWorkflow,0); if(id==='central') setTimeout(renderCentralSearch,0); };
+
+
+// V16 — سلامة البيانات والفحص المؤسسي
+async function createManualBackup(){
+  try{await createAutoBackup('نسخة احتياطية يدوية من مركز سلامة البيانات'); addAudit('إنشاء نسخة احتياطية','تم إنشاء نسخة احتياطية يدوية'); await persist(); alert('تم إنشاء النسخة الاحتياطية بنجاح.'); runIntegrityCheck();}
+  catch(e){alert('تعذر إنشاء النسخة الاحتياطية.');}
+}
+function exportAuditLog(){
+ const payload={format:'NiyabaMonitorAuditLog',version:DATA_VERSION,exportedAt:new Date().toISOString(),entries:db.auditLog||[]};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NiyabaMonitor_AuditLog_'+today()+'.json';a.click();URL.revokeObjectURL(a.href);
+}
+async function getBackupHealth(){
+ try{
+  const idb=await openDB(); const tx=idb.transaction('backups','readonly'); const req=tx.objectStore('backups').getAll();
+  const rows=await new Promise((res,rej)=>{req.onsuccess=()=>res(req.result||[]);req.onerror=()=>rej(req.error)});
+  rows.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+  return rows[0]||null;
+ }catch(e){return null}
+}
+async function runIntegrityCheck(){
+ const checks=[]; let score=100;
+ checks.push({name:'قاعدة البيانات الرئيسية',ok:dbReady&&!!db,detail:dbReady?'IndexedDB متاحة والبيانات محملة.':'قاعدة البيانات غير جاهزة.'});
+ const sections=Array.isArray(db.sections)?db.sections:[]; const inspections=Array.isArray(db.inspections)?db.inspections:[];
+ const badIds=new Set(); const badRecords=[];
+ inspections.forEach((i,idx)=>{if(!i.id||!i.sectionName||!i.inspectionDate||!i.questions||!i.answers){badRecords.push(idx+1);return} const q=qualityFor(i); if(q.critical)badRecords.push(idx+1);});
+ checks.push({name:'بنية الشعب',ok:sections.length>=13,detail:`${sections.length} شعبة معرفة في قاعدة البيانات.`});
+ checks.push({name:'سلامة سجل المراقبات',ok:badRecords.length===0,detail:badRecords.length?`سجلات تحتاج مراجعة: ${badRecords.slice(0,10).join('، ')}${badRecords.length>10?'…':''}`:`جميع السجلات (${inspections.length}) اجتازت الفحص البنيوي.`});
+ checks.push({name:'سجل التدقيق',ok:Array.isArray(db.auditLog),detail:`${(db.auditLog||[]).length} عملية مسجلة.`});
+ const backup=await getBackupHealth(); const backupFresh=backup && ((Date.now()-new Date(backup.createdAt).getTime())<7*86400000);
+ checks.push({name:'النسخ الاحتياطي',ok:!!backup,detail:backup?`آخر نسخة: ${fmtDateTime(backup.createdAt)} — ${backup.reason||'نسخة تلقائية'}`:'لا توجد نسخة احتياطية مسجلة بعد.'});
+ checks.forEach(c=>{if(!c.ok)score-=20}); score=Math.max(0,score);
+ const cls=score>=90?'health-good':score>=70?'health-warn':'health-bad'; const label=score>=90?'سليم':score>=70?'يحتاج مراجعة':'حرج';
+ systemHealth.textContent=label+' '+score+'%'; systemHealth.className='health-ring '+cls; systemHealthNote.textContent='نتيجة فحص سلامة النظام';
+ dbHealth.textContent=checks[0].ok?'سليمة':'غير سليمة'; dbHealth.className='health-ring '+(checks[0].ok?'health-good':'health-bad'); dbHealthNote.textContent=checks[0].detail;
+ recordHealth.textContent=checks[2].ok&&checks[1].ok?'سليمة':'مراجعة'; recordHealth.className='health-ring '+(checks[2].ok&&checks[1].ok?'health-good':'health-warn'); recordHealthNote.textContent=checks[1].detail;
+ lastBackupHealth.textContent=backup?fmtDate(backup.createdAt):'لا توجد'; lastBackupNote.textContent=backup?(backupFresh?'نسخة حديثة خلال آخر 7 أيام':'نسخة أقدم من 7 أيام'):'يوصى بإنشائها الآن';
+ integrityList.innerHTML=checks.map(c=>`<div class="integrity-item"><span><b>${esc(c.name)}</b><br><small class="muted">${esc(c.detail)}</small></span><span class="${c.ok?'check-ok':'check-bad'}">${c.ok?'✓ سليم':'! مراجعة'}</span></div>`).join('');
+}
+
+function workflowState(i){return i.approvalStatus||'معتمدة'}
+function renderWorkflow(){
+ const rows=db.inspections||[], search=(document.getElementById('wfSearch')?.value||'').trim().toLowerCase(), st=document.getElementById('wfState')?.value||'';
+ wfReview.textContent=rows.filter(i=>workflowState(i)==='قيد المراجعة').length; wfApproved.textContent=rows.filter(i=>workflowState(i)==='معتمدة').length; wfClosed.textContent=rows.filter(i=>workflowState(i)==='مغلقة').length; wfAction.textContent=rows.filter(i=>['قيد المراجعة'].includes(workflowState(i)) || i.status==='تستوجب التدخل').length;
+ const list=rows.filter(i=>{const hay=(i.sectionName+' '+(i.employee||'')).toLowerCase(); return (!search||hay.includes(search))&&(!st||workflowState(i)===st)});
+ workflowList.innerHTML=list.length?`<div style="overflow:auto"><table><thead><tr><th>التاريخ</th><th>الشعبة</th><th>الموظف</th><th>حالة المراقبة</th><th>حالة الاعتماد</th><th>آخر إجراء</th></tr></thead><tbody>${list.map(i=>{const ws=workflowState(i);let action='';if(ws==='قيد المراجعة') action=`<button class="btn btn-primary" onclick="approveInspection('${i.id}')">اعتماد</button>`; else if(ws==='معتمدة') action=`<button class="btn btn-light" onclick="closeInspection('${i.id}')">إغلاق</button>`; else action=`<span class="badge state-closed">مغلقة</span>`; return `<tr><td>${esc(fmtDate(i.inspectionDate||i.date))}</td><td><b>${esc(i.sectionName)}</b></td><td>${esc(i.employee||'—')}</td><td><span class="badge">${esc(i.status||'مكتملة')}</span></td><td><span class="badge ${ws==='قيد المراجعة'?'state-review':ws==='معتمدة'?'state-approved':'state-closed'}">${esc(ws)}</span></td><td><div class="workflow-actions">${action}<button class="btn btn-light" onclick="viewInspection('${i.id}')">التفاصيل</button></div></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty">لا توجد نتائج مطابقة.</div>';
+}
+async function approveInspection(id){if(security.role!=='مدير النظام'){alert('اعتماد المراقبات متاح لمدير النظام فقط.');return} const i=db.inspections.find(x=>x.id===id);if(!i)return;if(!confirm('هل تريد اعتماد هذه المراقبة؟'))return;i.approvalStatus='معتمدة';i.approvedAt=new Date().toISOString();i.approvedBy=security.role;addAudit('اعتماد مراقبة',`${i.sectionName} — ${i.inspectionDate}`);if(await persist()) renderWorkflow();}
+async function closeInspection(id){if(security.role!=='مدير النظام'){alert('إغلاق المراقبات متاح لمدير النظام فقط.');return} const i=db.inspections.find(x=>x.id===id);if(!i)return;if(!confirm('هل تريد إغلاق هذه المراقبة؟'))return;i.approvalStatus='مغلقة';i.closedAt=new Date().toISOString();addAudit('إغلاق مراقبة',`${i.sectionName} — ${i.inspectionDate}`);if(await persist()) renderWorkflow();}
+function printWorkflow(){renderWorkflow();const old=document.title;document.title='سجل اعتماد المراقبات — مراقبة كتابة النيابة العامة';setTimeout(()=>{window.print();setTimeout(()=>document.title=old,800)},100)}
+
+// V18 — البحث المركزي والملف الموحد
+function centralPopulateSections(){const el=document.getElementById('centralSection');if(!el)return;const cur=el.value;el.innerHTML='<option value="">جميع الشعب</option>'+((db.sections||[]).filter(s=>s.active!==false).map(s=>`<option value="${esc(s.name)}">${esc(s.name)}</option>`).join(''));if(cur)el.value=cur;}
+function centralText(i){return [i.sectionName,i.employee,i.inspector,i.notes,i.recommendations,i.followUpNote,i.status,i.recommendationStatus,workflowState(i)].filter(Boolean).join(' ').toLowerCase()}
+function centralMatches(i){const q=(document.getElementById('centralQuery')?.value||'').trim().toLowerCase(),sec=document.getElementById('centralSection')?.value||'',st=document.getElementById('centralStatus')?.value||'',ap=document.getElementById('centralApproval')?.value||'',from=document.getElementById('centralFrom')?.value||'',to=document.getElementById('centralTo')?.value||'',d=i.inspectionDate||String(i.date||'').slice(0,10);return (!q||centralText(i).includes(q))&&(!sec||i.sectionName===sec)&&(!st||(i.status||'مكتملة')===st)&&(!ap||workflowState(i)===ap)&&(!from||d>=from)&&(!to||d<=to)}
+function highlightText(t,q){if(!t)return '—';if(!q)return esc(t);const e=esc(t),parts=q.split(/\s+/).filter(Boolean).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));if(!parts.length)return e;try{return e.replace(new RegExp('('+parts.join('|')+')','gi'),'<span class="match">$1</span>')}catch{return e}}
+function renderCentralSearch(){centralPopulateSections();const rows=(db.inspections||[]).filter(centralMatches);const scans=rows.map(scanFor).map(Number).filter(Number.isFinite),avg=scans.length?Math.round(scans.reduce((a,b)=>a+b,0)/scans.length*100)/100:null;centralCount.textContent=rows.length;centralAvgScan.textContent=avg===null?'—':avg+'%';centralIntervene.textContent=rows.filter(i=>i.status==='تستوجب التدخل').length;centralOpenRec.textContent=rows.filter(i=>['قيد المتابعة','غير منجزة'].includes(i.recommendationStatus)).length;const q=(centralQuery?.value||'').trim();centralResults.innerHTML=rows.length?rows.slice(0,100).map(i=>`<div class="central-result"><div class="central-result-head"><div><h3>${highlightText(i.sectionName,q)}</h3><div class="central-meta"><span class="badge">${esc(fmtDate(i.inspectionDate||i.date))}</span><span class="badge">${highlightText(i.employee||'موظف غير محدد',q)}</span><span class="badge">${esc(i.status||'مكتملة')}</span><span class="badge">${esc(workflowState(i))}</span></div></div><strong>${scanFor(i)}% مسح</strong></div><p class="central-snippet"><b>الملاحظات:</b> ${highlightText(i.notes||'لا توجد ملاحظات',q)}<br><b>التوصيات:</b> ${highlightText(i.recommendations||'لا توجد توصيات',q)}</p><div class="central-actions"><button class="btn btn-primary" onclick="openCentralDossier('${i.id}')">فتح الملف الموحد</button><button class="btn btn-light" onclick="viewInspection('${i.id}')">تفاصيل المراقبة</button></div></div>`).join(''):'<div class="empty">لا توجد نتائج مطابقة لمعايير البحث.</div>';if(!rows.length)centralDossier.style.display='none';}
+function openCentralDossier(id){const i=db.inspections.find(x=>x.id===id);if(!i)return;const q=centralQuery?.value||'';const a=analysisFor(i),p=priorityFor(i),qs=Array.isArray(i.questions)?i.questions:[],answers=i.answers||{};centralDossier.style.display='block';centralDossier.innerHTML=`<div class="dossier-head"><h2>الملف الموحد للمراقبة</h2><p>${highlightText(i.sectionName,q)} — ${esc(fmtDate(i.inspectionDate||i.date))}</p></div><div class="dossier-grid"><div class="dossier-box">الموظف المكلف<b>${highlightText(i.employee||'—',q)}</b></div><div class="dossier-box">المراقب<b>${esc(i.inspector||'رئيس كتابة النيابة العامة')}</b></div><div class="dossier-box">نسبة المسح<b>${scanFor(i)}%</b></div><div class="dossier-box">الأولوية<b>${esc(p.level)} — ${p.score}</b></div></div><div class="central-meta"><span class="badge">التقييم: ${esc(a.level)}</span><span class="badge">حالة المراقبة: ${esc(i.status||'مكتملة')}</span><span class="badge">الاعتماد: ${esc(workflowState(i))}</span><span class="badge">التوصية: ${esc(i.recommendationStatus||'غير محددة')}</span></div><div class="dossier-section"><h3>المؤشرات الرقمية</h3><div style="overflow:auto"><table class="dossier-table"><thead><tr><th>المؤشر</th><th>القيمة</th></tr></thead><tbody>${qs.map(qi=>`<tr><td>${esc(qi.label||'')}</td><td>${esc(String(answers[qi.id]??'—'))}</td></tr>`).join('')}</tbody></table></div></div><div class="dossier-section"><h3>الملاحظات والتوصيات</h3><p class="central-snippet"><b>الملاحظات:</b> ${highlightText(i.notes||'—',q)}<br><b>التوصيات:</b> ${highlightText(i.recommendations||'—',q)}<br><b>ملاحظة المتابعة:</b> ${highlightText(i.followUpNote||'—',q)}</p></div><div class="dossier-section"><h3>التتبع والاعتماد</h3><p class="central-snippet">تاريخ الاعتماد: ${i.approvedAt?esc(fmtDateTime(i.approvedAt)):'—'} — المعتمد: ${esc(i.approvedBy||'—')} — تاريخ الإغلاق: ${i.closedAt?esc(fmtDateTime(i.closedAt)):'—'}</p></div><div class="central-actions"><button class="btn btn-gold" onclick="printCentralDossier()">طباعة / PDF</button><button class="btn btn-light" onclick="centralDossier.style.display='none'">إغلاق الملف</button></div>`;centralDossier.scrollIntoView({behavior:'smooth',block:'start'})}
+function clearCentralSearch(){['centralQuery','centralFrom','centralTo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});['centralSection','centralStatus','centralApproval'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});renderCentralSearch()}
+function printCentralDossier(){if(centralDossier.style.display==='none'||!centralDossier.innerHTML){alert('افتح ملفاً موحداً أولاً.');return}const old=document.title;document.title='الملف الموحد للمراقبة — نظام مراقبة كتابة النيابة العامة';centralDossier.classList.add('central-print-only');window.print();setTimeout(()=>{centralDossier.classList.remove('central-print-only');document.title=old},800)}
+
+// Stable 1.0 — تجربة المستخدم الاحترافية
+const COMMAND_ITEMS=[
+ ['home','لوحة القيادة الرئيسية','الرئيسية'],['inspect','إجراء مراقبة جديدة','مراقبة'],['sections','الشعب والمؤشرات','إدارة'],['history','سجل المراقبات','سجل'],['reports','التقارير والتحليل','تقارير'],['efficiency','نجاعة الإنجاز','نجاعة'],['followup','متابعة التوصيات','توصيات'],['analysis','التقييم والتحليل','تحليل'],['priority','التنبيهات والأولويات','تنبيهات'],['command','مركز القيادة','قيادة'],['security','الإدارة والأمن','أمن'],['workflow','اعتماد المراقبات','اعتماد'],['quality','تدقيق الجودة وسلامة البيانات','جودة'],['central','البحث المركزي والملف الموحد','بحث']
+];
+let commandIndex=0;
+function openCommandPalette(){const m=document.getElementById('commandModal');if(!m)return;m.classList.add('show');const i=document.getElementById('commandInput');i.value='';renderCommandPalette();setTimeout(()=>i.focus(),30)}
+function closeCommandPalette(){document.getElementById('commandModal')?.classList.remove('show')}
+function renderCommandPalette(){const q=(document.getElementById('commandInput')?.value||'').trim().toLowerCase();const items=COMMAND_ITEMS.filter(x=>(x[1]+' '+x[2]).toLowerCase().includes(q));commandIndex=Math.min(commandIndex,Math.max(0,items.length-1));document.getElementById('commandList').innerHTML=items.map((x,n)=>`<button class="command-item ${n===commandIndex?'active':''}" onclick="commandOpen('${x[0]}')"><span><b>${esc(x[1])}</b><br><small>${esc(x[2])}</small></span><span>↵</span></button>`).join('')||'<div class="empty">لا توجد وظيفة مطابقة.</div>'}
+function commandOpen(id){closeCommandPalette();show(id)}
+function commandKeydown(e){const q=(document.getElementById('commandInput')?.value||'').trim().toLowerCase();const items=COMMAND_ITEMS.filter(x=>(x[1]+' '+x[2]).toLowerCase().includes(q));if(e.key==='Escape'){e.preventDefault();closeCommandPalette()}else if(e.key==='ArrowDown'){e.preventDefault();commandIndex=Math.min(commandIndex+1,items.length-1);renderCommandPalette()}else if(e.key==='ArrowUp'){e.preventDefault();commandIndex=Math.max(commandIndex-1,0);renderCommandPalette()}else if(e.key==='Enter'&&items[commandIndex]){e.preventDefault();commandOpen(items[commandIndex][0])}}
+function toggleMobileMenu(force){const sb=document.querySelector('.sidebar'),ov=document.getElementById('mobileOverlay');const open=force===undefined?!sb.classList.contains('mobile-open'):force;sb.classList.toggle('mobile-open',open);ov.classList.toggle('show',open)}
+function toast(message,type=''){const stack=document.getElementById('toastStack');if(!stack)return;const el=document.createElement('div');el.className='toast '+type;el.textContent=message;stack.appendChild(el);setTimeout(()=>el.remove(),3200)}
+function updateSystemStatus(){const el=document.getElementById('systemStatusText');if(el)el.textContent=dbReady?'النظام يعمل':'جارٍ تجهيز البيانات';const p=document.getElementById('pageProgress');if(p)p.style.width=dbReady?'100%':'65%'}
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette()}if(e.key==='Escape'){closeCommandPalette();if(window.innerWidth<=1000)toggleMobileMenu(false)}});
+document.addEventListener('click',e=>{if(e.target.closest('.menu button')&&window.innerWidth<=1000)toggleMobileMenu(false)});
+// V15 — الإدارة والأمن المحلي
+const SECURITY_KEY='niyaba_security_v1';
+let security={enabled:false,pinHash:'',role:'مدير النظام'};
+let sessionUnlocked=true;
+const rolePermissions={
+ 'مدير النظام':['إجراء المراقبة','عرض السجل والتقارير','إدارة الشعب والمؤشرات','إدارة التوصيات','التقييم والتنبيهات','مركز القيادة','تدقيق الجودة','اعتماد المراقبات','النسخ الاحتياطي والاسترجاع','الإدارة والأمن'],
+ 'مراقب':['إجراء المراقبة','عرض السجل والتقارير','إدارة التوصيات','التقييم والتنبيهات','مركز القيادة','تدقيق الجودة','اعتماد المراقبات']
+};
+function loadSecurity(){try{const x=JSON.parse(localStorage.getItem(SECURITY_KEY)||'null');if(x)security={...security,...x};}catch(e){} sessionUnlocked=!security.enabled; applyPermissions();}
+async function hashPin(pin){const data=new TextEncoder().encode(pin);const h=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('');}
+function saveSecurity(){try{localStorage.setItem(SECURITY_KEY,JSON.stringify(security));}catch(e){} applyPermissions();}
+function applyPermissions(){
+ const role=security.role||'مدير النظام';
+ const canAdmin=role==='مدير النظام';
+ document.querySelectorAll('nav button').forEach(b=>{const v=b.dataset.v;let allow=true;if(['sections','reports'].includes(v))allow=canAdmin;if(v==='security')allow=canAdmin;b.style.display=allow?'':'none';});
+ const rb=document.getElementById('currentRoleBadge');if(rb)rb.textContent=role;
+ const pl=document.getElementById('permissionList');if(pl)pl.innerHTML=rolePermissions[role].map(x=>`<div class="permission-item"><span>${esc(x)}</span><span class="ok">متاح</span></div>`).join('');
+ const le=document.getElementById('lockEnabled');if(le)le.checked=!!security.enabled;
+ const ll=document.getElementById('lockLabel');if(ll)ll.textContent=security.enabled?'مفعل':'غير مفعل';
+}
+async function toggleLockSetting(enabled){
+ if(enabled){
+   if(security.pinHash){security.enabled=true;sessionUnlocked=true;saveSecurity();return;}
+   const pin=prompt('ضع رمز PIN محلياً من 4 إلى 8 أرقام:');
+   if(!/^\d{4,8}$/.test(pin||'')){alert('يجب أن يتكون الرمز من 4 إلى 8 أرقام.');applyPermissions();return;}
+   const confirmPin=prompt('أعد إدخال رمز PIN:');
+   if(pin!==confirmPin){alert('الرمزان غير متطابقين.');applyPermissions();return;}
+   security.pinHash=await hashPin(pin);security.enabled=true;sessionUnlocked=true;addAudit('تفعيل قفل البرنامج','تم تفعيل القفل المحلي');saveSecurity();await persist();alert('تم تفعيل القفل المحلي.');
+ }else{
+   if(security.enabled){const pin=prompt('أدخل رمز PIN الحالي لتعطيل القفل:');if(await hashPin(pin||'')!==security.pinHash){alert('رمز PIN غير صحيح.');applyPermissions();return;}}
+   security.enabled=false;sessionUnlocked=true;addAudit('تعطيل قفل البرنامج','تم تعطيل القفل المحلي');saveSecurity();await persist();alert('تم تعطيل القفل المحلي.');
+ }
+}
+async function changePin(){
+ if(!security.enabled){alert('فعّل قفل البرنامج أولاً.');return;}
+ const old=prompt('أدخل رمز PIN الحالي:');if(await hashPin(old||'')!==security.pinHash){alert('رمز PIN الحالي غير صحيح.');return;}
+ const pin=prompt('أدخل رمز PIN الجديد (4 إلى 8 أرقام):');if(!/^\d{4,8}$/.test(pin||'')){alert('رمز غير صالح.');return;}
+ const cp=prompt('أعد إدخال الرمز الجديد:');if(pin!==cp){alert('الرمزان غير متطابقين.');return;}
+ security.pinHash=await hashPin(pin);addAudit('تغيير رمز PIN','تم تغيير رمز القفل المحلي');saveSecurity();await persist();alert('تم تغيير رمز PIN.');
+}
+async function switchRole(){
+ if(security.enabled){const pin=prompt('أدخل رمز PIN لتغيير الدور:');if(await hashPin(pin||'')!==security.pinHash){alert('رمز PIN غير صحيح.');return;}}
+ security.role=security.role==='مدير النظام'?'مراقب':'مدير النظام';addAudit('تغيير الدور',security.role);saveSecurity();await persist();alert('الدور النشط الآن: '+security.role);show('home');}
+function lockNow(){if(!security.pinHash){alert('فعّل قفل البرنامج أولاً.');return;}sessionUnlocked=false;document.getElementById('lockTitle').textContent='البرنامج مقفل';document.getElementById('pinEntry').value='';document.getElementById('pinError').style.display='none';document.getElementById('lockModal').classList.add('show');}
+async function unlockApp(){const pin=document.getElementById('pinEntry').value;const ok=await hashPin(pin)===security.pinHash;if(!ok){document.getElementById('pinError').style.display='block';return;}sessionUnlocked=true;document.getElementById('lockModal').classList.remove('show');document.getElementById('pinEntry').value='';}
+const _showSecure=show; show=function(id){if(security.enabled&&!sessionUnlocked&&id!=='security'){document.getElementById('lockModal').classList.add('show');return;}if(['sections','reports','security'].includes(id)&&security.role!=='مدير النظام'){alert('هذه الوظيفة متاحة لمدير النظام فقط.');return;} _showSecure(id);};
+loadSecurity();
+if(security.enabled&&!sessionUnlocked)document.getElementById('lockModal').classList.add('show');
+</script><script>updateSystemStatus();</script></body></html>
