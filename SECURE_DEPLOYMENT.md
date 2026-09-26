@@ -12,7 +12,7 @@
 
 ## إعداد Supabase مرة واحدة
 1. افتح Supabase → SQL Editor.
-2. نفذ كامل الملف `SECURE_SCHEMA.sql`.
+2. ارفع/افتح الملف `SECURE_SCHEMA.sql` المرفق بهذه الحزمة ثم نفذه كاملاً.
 3. تأكد أن المستخدم `azizgannour@gmail.com` موجود في Authentication → Users.
 4. داخل Storage → `reports` ارفع:
    - `complaints.pdf`
